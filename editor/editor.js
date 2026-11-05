@@ -219,6 +219,11 @@
 
       evtSource.onerror = (err) => {
         console.warn('[SSE] Connection issue, retrying...', err);
+        // If hosted on GitHub Pages or static preview without SSE server, close gracefully
+        if (location.protocol === 'https:' && location.hostname.includes('github.io')) {
+          evtSource.close();
+          if (dom.liveSyncBadge) dom.liveSyncBadge.style.display = 'none';
+        }
       };
     } catch (e) {
       console.warn('[SSE] EventSource initialization failed:', e);
@@ -285,14 +290,17 @@
       pushHistory('Initial Load');
       setStatus('READY', 'ready');
     } catch (err) {
-      console.warn('API error, falling back to direct /src/menu.html fetch:', err);
+      console.warn('API error, falling back to direct static menu fetch:', err);
       try {
-        const res = await fetch('/src/menu.html');
+        let res = await fetch('../src/menu.html').catch(() => null);
+        if (!res || !res.ok) res = await fetch('./src/menu.html').catch(() => null);
+        if (!res || !res.ok) res = await fetch('/src/menu.html').catch(() => null);
+        if (!res || !res.ok) throw new Error('Could not locate src/menu.html template');
         const html = await res.text();
         state.rawTemplateHtml = html;
         renderArtboardsFromHtml(html);
         pushHistory('Initial Load');
-        setStatus('READY (STATIC)', 'ready');
+        setStatus('READY (PREVIEW)', 'ready');
       } catch (e) {
         showToast('Failed to load menu template: ' + e.message, 'error');
         setStatus('ERROR', 'busy');
@@ -1854,34 +1862,90 @@
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
+          }).catch(err => {
+            console.warn('[EXPORT] /api/export endpoint unreachable, trying client-side export:', err);
+            return null;
           });
 
-          if (!res.ok) {
-            const errJson = await res.json().catch(() => ({ error: 'Export failed' }));
-            throw new Error(errJson.error || `HTTP ${res.status}`);
+          if (res && res.ok) {
+            const blob = await res.blob();
+            const dispHeader = res.headers.get('Content-Disposition') || '';
+            const matchFilename = dispHeader.match(/filename="?([^";]+)"?/);
+            const filename = matchFilename ? matchFilename[1] : `crave-lab-menu.${state.exportFormat}`;
+
+            // Trigger browser download
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+
+            setStatus('READY', 'ready');
+            showToast(`Exported ${filename} (${Math.round(blob.size / 1024)} KB)`, 'success');
+            closeExportModal();
+            return;
           }
 
-          const blob = await res.blob();
-          const dispHeader = res.headers.get('Content-Disposition') || '';
-          const matchFilename = dispHeader.match(/filename="?([^";]+)"?/);
-          const filename = matchFilename ? matchFilename[1] : `crave-lab-menu.${state.exportFormat}`;
+          // Client-side fallback for static preview / GitHub Pages
+          if (state.exportFormat === 'html') {
+            const blob = new Blob([serializedHtml], { type: 'text/html;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'crave-lab-menu.html';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+            showToast('Exported standalone HTML (Client-Side)', 'success');
+            closeExportModal();
+            return;
+          }
 
-          // Trigger browser download
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = filename;
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          window.URL.revokeObjectURL(url);
+          if (state.exportFormat === 'json') {
+            const menuData = {
+              title: 'CRAVE LAB Menu',
+              theme: state.theme,
+              columns: state.gridCols,
+              artboards: Array.from(document.querySelectorAll('.page-artboard-wrapper')).map((bw, idx) => ({
+                id: bw.dataset.boardId || `page-${idx+1}`,
+                title: bw.querySelector('.category-header-title')?.textContent?.trim() || '',
+                subtitle: bw.querySelector('.category-subtitle')?.textContent?.trim() || '',
+                items: Array.from(bw.querySelectorAll('.menu-card')).map(mc => ({
+                  title: mc.querySelector('.item-title')?.textContent?.trim() || '',
+                  desc: mc.querySelector('.item-desc')?.textContent?.trim() || '',
+                  price: mc.querySelector('.price-val')?.textContent?.trim() || ''
+                }))
+              }))
+            };
+            const blob = new Blob([JSON.stringify(menuData, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'crave-lab-menu.json';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+            showToast('Exported structured JSON (Client-Side)', 'success');
+            closeExportModal();
+            return;
+          }
 
-          setStatus('READY', 'ready');
-          showToast(`Exported ${filename} (${Math.round(blob.size / 1024)} KB)`, 'success');
-          closeExportModal();
+          if (state.exportFormat === 'pdf') {
+            window.print();
+            showToast('Print dialog opened. (For full 300 DPI vector PDF + 3mm bleed, run locally via npm start)', 'info');
+            closeExportModal();
+            return;
+          }
+
+          throw new Error('This format requires the local Node server. Run "npm start" locally for 300 DPI PNG, EPS, and Vector PDF with 3mm bleed!');
         } catch (err) {
           setStatus('ERROR', 'busy');
-          showToast('Export Error: ' + err.message, 'error');
+          showToast(err.message, 'error');
           console.error(err);
         } finally {
           if (dom.exportSpinner) dom.exportSpinner.style.display = 'none';

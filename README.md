@@ -14,6 +14,59 @@
 [![Zero Overflow](https://img.shields.io/badge/Layout-Zero%20Overflow%20Verified-success.svg)](#-print-engineering--verification)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+<br/>
+
+<div align="center">
+  <a href="https://psycbeat.github.io/canvas-menu-pipeline/">
+    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-Try%20Canvas%20Studio%20Online-00C7B7?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Demo" height="36" />
+  </a>
+</div>
+
+---
+
+## 📸 Visual Showcase
+
+<div align="center">
+
+### 🎨 Illustrator-Style Artboard Tool (`Shift + O`)
+*Interactive 8-point drag-to-resize handles, live dimension pills, and instant presets (A4, A5, A3, Letter, 16:9, Square 1080p)*
+
+<img src="assets/screenshots/artboard-tool-active.png" alt="Illustrator Artboard Tool" width="90%" />
+
+<br/><br/>
+
+### 💾 Universal 8-Format Export Studio (`Ctrl + E`)
+*Fast downloads via warm headless Chromium: Vector PDF, 300 DPI PNG, EPS, SVG, WebP, JPG, HTML, and JSON with 3mm commercial bleed + trim crop marks*
+
+<img src="assets/screenshots/export-studio-modal.png" alt="Universal Export Studio Modal" width="85%" />
+
+<br/><br/>
+
+### 🌙 1-Click Culinary Brand Themes (e.g. Midnight Gold)
+*Full-menu rebranding across 5 print-calibrated color palettes in a single click*
+
+<img src="assets/screenshots/theme-midnight-gold.png" alt="Midnight Gold Luxury Theme" width="90%" />
+
+<br/><br/>
+
+### 🤖 Live AI Ghost Cursor & Collaborative Focus
+*Floating `✨ Antigravity AI` cursor badge and pulsating focus aura showing where an autonomous AI agent is editing in real time*
+
+<img src="assets/screenshots/live-ai-cursor.png" alt="Live AI Ghost Cursor" width="90%" />
+
+<br/><br/>
+
+### 📱 Adaptive Split-Screen & Mobile Responsiveness
+*Stage sizer engine preventing negative coordinate clipping, off-canvas properties drawer, and auto-converting floating tool dock*
+
+<p align="center">
+  <img src="assets/screenshots/responsive-widescreen.png" alt="Widescreen Desktop Studio" width="55%" />
+  &nbsp;&nbsp;
+  <img src="assets/screenshots/responsive-mobile.png" alt="Mobile Portrait Overlay" width="38%" />
+</p>
+
+</div>
+
 ---
 
 ## 💡 What is Canvas Studio?
