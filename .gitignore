@@ -20,5 +20,6 @@ Desktop.ini
 
 # Temporary Test Outputs (Keep production PDF & sample page screenshots)
 output/test-*.png
+output/test-export-sample.*
 output/drawer-*.png
 output/responsive-*.png

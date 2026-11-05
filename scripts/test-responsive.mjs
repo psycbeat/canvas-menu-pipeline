@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
-const artifactDir = 'C:/Users/psycb/.gemini/antigravity/brain/51ed04a5-e06d-4637-83dd-952691fe2538';
+const artifactDir = process.env.ARTIFACT_DIR || null;
 
 async function testResponsive() {
   console.log('Testing Canvas Studio Responsive Adaptability across Viewports...\n');
@@ -87,12 +87,12 @@ async function testResponsive() {
     await page.screenshot({ path: outPath });
     console.log(`  📸 Screenshot saved: ${path.basename(outPath)}`);
 
-    // Copy to artifact directory for presentation
-    try {
-      const artPath = path.join(artifactDir, `responsive-${vp.name}.png`);
-      fs.copyFileSync(outPath, artPath);
-    } catch (e) {
-      // ignore if path issues
+    // Copy to artifact directory if configured
+    if (artifactDir && fs.existsSync(artifactDir)) {
+      try {
+        const artPath = path.join(artifactDir, `responsive-${vp.name}.png`);
+        fs.copyFileSync(outPath, artPath);
+      } catch (_) {}
     }
 
     // Now test inspector toggle
