@@ -29,6 +29,20 @@
 
 <div align="center">
 
+### 🚀 Interactive Welcome & Onboarding Tutorial Modal
+*Automatic startup guide showing what every tool does, size preset selector (A4, A5, A3, US Letter, 16:9, Square), and Blank Canvas vs Reference Template choices*
+
+<img src="assets/screenshots/welcome-modal.png" alt="PsycBeat Canvas Studio Welcome Tutorial Modal" width="90%" />
+
+<br/><br/>
+
+### 📐 Vector Workbench & Freeform Element Dragging
+*Direct interactive drag-and-drop repositioning with live coordinate badges (`X: ... Y: ...`), Claude Canvas grid reordering, and Illustrator shape tools (Rectangles `M`, Circles `L`, Lines `\`, Text `T`)*
+
+<img src="assets/screenshots/studio-vectors.png" alt="PsycBeat Canvas Studio Vector Workbench" width="90%" />
+
+<br/><br/>
+
 ### 🎨 Illustrator-Style Artboard Tool (`Shift + O`)
 *Interactive 8-point drag-to-resize handles, live dimension pills, and instant presets (A4, A5, A3, Letter, 16:9, Square 1080p)*
 
