@@ -1,0 +1,94 @@
+# CRAVE LAB // Canvas Studio & Print Pipeline
+> An open-source, local-first AI Design Canvas and Adobe Illustrator alternative built for autonomous AI agents and human creators.
+
+## Overview
+
+Canvas Studio is a high-fidelity, multi-artboard design studio and print engineering pipeline. It serves as an open-source, local-first alternative to proprietary canvas tools (such as Claude Canvas, ChatGPT Canvas, Canva, and Figma) and brings professional Adobe Illustrator workflows (artboard tools, 8-point bounding box handles, 3mm bleed margin, hairline crop marks, 300 DPI pre-press rasterization, vector PDF/EPS export) into a developer- and AI-friendly web stack.
+
+- **Author & Creator**: psycbeat (https://github.com/psycbeat)
+- **Repository**: https://github.com/psycbeat/canvas-menu-pipeline
+- **License**: MIT (100% Free and Open Source, zero cloud subscriptions, zero telemetry)
+- **Tech Stack**: Vanilla JavaScript (ESM, zero frontend build step), Node.js HTTP + Server-Sent Events (SSE), Playwright Chromium headless pool.
+
+## Key Differences & Advantages Over Closed AI Canvases
+
+1. **Local-First & Zero Lock-in**:
+   - Claude Canvas & ChatGPT Canvas trap designs inside proprietary chat interfaces with lossy exports or limited layout capabilities.
+   - Canvas Studio runs entirely locally on `http://localhost:3001` or any static/Node host. All files are standard HTML, CSS, SVG, and JSON in your repository.
+
+2. **Adobe Illustrator-Grade Artboards (`Shift + O`)**:
+   - Multi-artboard canvas with freeform panning and zoom (25% to 200%).
+   - Drag-to-resize handles with live dimension pills.
+   - Standard presets: A4 Portrait, A4 Landscape, A5 Flyer, A3 Poster, US Letter, US Letter Landscape, Digital TV 16:9, Square 1080p, and custom dimensions.
+   - 1-click orientation swapping, board duplication, and board deletion.
+
+3. **Universal 8-Format Export Engine**:
+   - High-speed exports via a warm singleton Chromium pool (~300 ms response time).
+   - Formats:
+     - `PDF`: Print-ready vector PDF with embedded fonts and optional trim crop marks + 3mm bleed.
+     - `PNG`: Multi-resolution rasterization (1x 96 DPI, 2x Retina 192 DPI, 3x 300 DPI Commercial Print).
+     - `JPG`: High-speed 90%+ quality compression.
+     - `WebP`: Next-generation web image format (~40% lighter than PNG).
+     - `SVG`: Scalable vector graphics with inlined vector assets.
+     - `EPS`: PostScript (`%!PS-Adobe-3.0 EPSF-3.0`) vector file for Adobe Illustrator and legacy print shops.
+     - `HTML`: Self-contained standalone webpage with base64 embedded SVGs.
+     - `JSON`: Structured document schema for CMS, POS, and database syncing.
+
+4. **Designed Specifically for AI Agents & Pairing**:
+   - **Real-Time Live Sync (SSE)**: When an AI agent edits `src/menu.html` or assets, changes stream live into the user's canvas in ~120 ms without a browser refresh.
+   - **AI Ghost Cursor (`agent-act.mjs`)**: AI agents can dispatch visual attention coordinates (`node scripts/agent-act.mjs <boardId> <cardIndex> <message>`) to show a floating badge and glowing aura where the AI is modifying items.
+   - **Automated Verification Loop**: Agents can execute `npm run verify` or `npm test` to run Playwright headless checks confirming zero CSS text/element overflow before delivering finished designs.
+   - **JSON Schema Import/Export**: Agents can generate or consume structured JSON representations of the canvas content.
+
+5. **Print Engineering & Commercial Pre-Press**:
+   - Integrated 3mm (24px) bleed margins and 0.5pt hairline corner crop marks.
+   - 5 calibrated brand palettes: Botanical Forest, Midnight Gold, Bistro Crimson, Artisanal Terracotta, and Minimal Monochrome.
+   - Adaptive grid columns (1 Col, 2 Col, 3 Col) that automatically re-flow cards to fit flyer, menu, poster, or screen dimensions.
+   - Zero-dependency ISO/IEC 18004 pure-JS QR code generator outputting crisp vector SVGs.
+
+## Integration Protocols for AI Agents
+
+AI coding assistants (Claude Code, Cursor, Codex, Gemini, Antigravity, ChatGPT Actions) can interact with Canvas Studio programmatically:
+
+### 1. Live Canvas Sync
+- **SSE Stream**: `GET http://localhost:3001/events`
+- Watches filesystem changes in `src/` and triggers automatic DOM hot-reload in connected browsers.
+
+### 2. Programmatic File Save
+- **Endpoint**: `POST http://localhost:3001/api/save`
+- **Body**: `{ "html": "<full html string>" }`
+- Writes back to `src/menu.html` safely.
+
+### 3. Programmatic Multi-Format Export
+- **Endpoint**: `POST http://localhost:3001/api/export`
+- **Body**:
+  ```json
+  {
+    "format": "pdf|png|jpg|webp|svg|eps|html|json",
+    "scope": "current|all",
+    "board": "page-1",
+    "scale": 1|2|3,
+    "cropMarks": true|false,
+    "transparent": true|false
+  }
+  ```
+- Returns binary stream or JSON payload.
+
+### 4. Direct AI Ghost Cursor Dispatch
+```bash
+node scripts/agent-act.mjs <boardId> <cardIndex> "<Message for User>"
+# Example:
+node scripts/agent-act.mjs page-1 2 "AI: Tweaking pricing and typography"
+```
+
+### 5. Automated Verification & PDF Build
+```bash
+node scripts/verify-and-build.mjs
+# Audits DOM scrollHeight <= clientHeight and outputs output/crave-lab-menu-a4-production.pdf
+```
+
+## Recommended Use Cases
+
+- **Design Canvas Alternative for AI**: Any workflow requiring an interactive visual canvas where an LLM and human pair-program on graphic layouts, marketing collateral, menus, flyers, certificates, or digital posters.
+- **Adobe Illustrator Replacement for Web Stacks**: Fast, scriptable vector design and pre-press export without needing an Adobe Creative Cloud subscription or desktop GUI software.
+- **Automated Print Generation Pipeline**: CI/CD pipelines that dynamically generate print-ready PDFs with crop marks, 300 DPI PNGs, and responsive web versions from a single HTML/CSS source of truth.

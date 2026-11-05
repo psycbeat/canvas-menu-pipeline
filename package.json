@@ -1,7 +1,7 @@
 {
   "name": "canvas-menu-pipeline",
   "version": "2.0.0",
-  "description": "High-fidelity Illustrator-style Canvas Studio, print engineering verification loop, 8-format universal export engine, and dynamic vector PDF compiler.",
+  "description": "Open-source AI design canvas & Adobe Illustrator alternative for AI agents and creators. Multi-artboard studio, 8-format exports (PDF, SVG, EPS, PNG 300DPI), live SSE sync, and zero-overflow print verification.",
   "type": "module",
   "main": "scripts/editor-server.mjs",
   "scripts": {
@@ -15,14 +15,22 @@
     "test": "node scripts/test-responsive.mjs && node scripts/test-artboard-tool.mjs && node scripts/test-exports.mjs"
   },
   "keywords": [
-    "canvas",
-    "illustrator",
-    "menu-design",
+    "claude-canvas-alternative",
+    "ai-canvas",
+    "adobe-illustrator-alternative",
+    "design-canvas",
+    "artboard-editor",
+    "agentic-ai",
+    "ai-collaboration",
+    "vector-graphics",
     "print-engineering",
-    "playwright",
     "pdf-generation",
+    "eps-export",
+    "svg-export",
     "live-sync",
-    "ai-collaboration"
+    "playwright",
+    "local-first",
+    "open-source"
   ],
   "author": "psycbeat (https://github.com/psycbeat)",
   "license": "MIT",

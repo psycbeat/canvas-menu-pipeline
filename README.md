@@ -1,10 +1,14 @@
-# 🎨 CRAVE LAB // Illustrator Canvas Studio & Print Pipeline
+# 🎨 Canvas Studio // The Open-Source AI Design Canvas
+### An Adobe Illustrator-Inspired Multi-Artboard Studio & Print Pipeline for Autonomous AI Agents and Human Creators
 
-> A production-grade, print-engineered multi-artboard canvas studio, 8-format universal export engine, automated zero-overflow visual verification loop, and dynamic vector PDF compiler.
+> **A 100% free, local-first alternative to Claude Canvas, ChatGPT Canvas, Canva, and Figma.**
+> Equipped with Illustrator-grade artboards (`Shift + O`), an 8-format universal export engine (Vector PDF, 300 DPI PNG, EPS, SVG, WebP, JPG, HTML, JSON), commercial pre-press crop marks & 3mm bleed, real-time SSE live sync, and an automated zero-overflow visual verification loop.
 >
-> **Created & Built by [@psycbeat](https://github.com/psycbeat)**
+> **Created & Architected by [@psycbeat](https://github.com/psycbeat)**
 
-[![CI Status](https://img.shields.io/badge/CI-Passing-brightgreen.svg)](#-github-actions-ci--testing)
+[![Claude Canvas Alternative](https://img.shields.io/badge/Alternative%20To-Claude%20%26%20ChatGPT%20Canvas-8A2BE2.svg)](#-why-canvas-studio-beats-closed-ai-canvases)
+[![Inspired by Adobe Illustrator](https://img.shields.io/badge/Inspired%20By-Adobe%20Illustrator-FF9A00.svg)](#-adobe-illustrator-for-ai-agents)
+[![Zero Subscriptions](https://img.shields.io/badge/Cost-100%25%20Free%20%26%20Open%20Source-success.svg)](#-license)
 [![Node.js Version](https://img.shields.io/badge/Node.js-v18%2B-green.svg)](https://nodejs.org/)
 [![Playwright Tested](https://img.shields.io/badge/Verification-Playwright%20Chromium-blue.svg)](https://playwright.dev/)
 [![Zero Overflow](https://img.shields.io/badge/Layout-Zero%20Overflow%20Verified-success.svg)](#-print-engineering--verification)
@@ -12,45 +16,152 @@
 
 ---
 
-## 🌟 Highlights
+## 💡 What is Canvas Studio?
 
-* **🎨 Illustrator-Style Visual Studio**: Multi-artboard canvas workbench, interactive selection bounding boxes with 4-corner handles, and live Properties Inspector.
-* **💾 Universal 8-Format Export Studio (`Ctrl + E`)**: Fast downloads powered by a warm headless Chromium pool (~300 ms):
-  * **Vector PDF**: Print-ready, crisp vector layout.
-  * **Lossless PNG**: $1\times$ (96 DPI), $2\times$ (Retina 192 DPI), or $3\times$ (300 DPI Commercial Print).
-  * **Compact JPEG**: Configurable compression for online menus & delivery apps.
-  * **Modern WebP**: High-efficiency next-gen image format.
-  * **Scalable SVG**: Standalone vector file with inlined vector assets.
-  * **PostScript EPS**: `%!PS-Adobe-3.0 EPSF-3.0` compliant vector format for Adobe Illustrator and print shops.
-  * **Single-File HTML**: Standalone webpage with all SVGs bundled as base64 data URIs.
-  * **Menu Data JSON**: Structured JSON export and import for POS & CMS syncing.
-* **🖨️ Commercial Pre-Press Mode**: 1-click toggle to inject 3mm ($24\text{ px}$) bleed margin and $0.5\text{ pt}$ hairline corner crop marks for commercial print shops.
-* **🎭 1-Click Culinary Brand Themes**: Instant full-menu rebranding across 5 print-calibrated palettes:
-  * **Botanical Forest** (Default — Modern Green & Crisp White)
-  * **Midnight Gold** (Dark Luxury Fine Dining & Steakhouse)
-  * **Bistro Crimson** (Smash Burger Joint & American Diner)
-  * **Artisanal Terracotta** (Wood-Fired Pizzeria & Rustic Bakery)
-  * **Minimal Monochrome** (Nordic Specialty Roaster & Japanese Minimal)
-* **📐 Dynamic Artboard Engine (`Shift + O`)**: Real-time artboard editing similar to Adobe Illustrator:
-  * 8-point drag-to-resize handles with live dimension pills.
-  * Instant standard presets: **A4 Portrait**, **A4 Landscape**, **A5 Portrait**, **A3 Poster**, **US Letter**, **US Letter Landscape**, **Digital TV 16:9**, **Square 1080p**, and **Custom Dimensions**.
-  * 1-click **Orientation Swap** (Portrait $\leftrightarrow$ Landscape).
-  * Direct artboard management: `+ New Artboard`, `Duplicate`, and `Delete`.
-* **📊 Adaptive Grid Columns (`1 Col | 2 Col | 3 Col`)**: Switch layouts on the fly to match artboard sizes (e.g. single-column for A5 flyers or 3-column for wide 16:9 screens).
-* **📱 Offline Vector QR Code Generator**: Built-in zero-dependency ISO/IEC 18004 pure-JS QR encoder that outputs crisp, phone-scannable `<svg>` codes live for any website URL.
-* **⚡ Zero-Refresh Live Sync**: Built on Server-Sent Events (SSE) and direct filesystem watching (`fs.watch`). Code edits stream live into your open browser canvas in $\approx 120\text{ ms}$ with zero manual refreshing.
-* **👻 AI Ghost Cursor & Collaborative Focus**: Visual collaboration system featuring a floating `✨ Antigravity AI` cursor badge and pulsating aura that shows where an AI assistant or peer is editing in real time.
-* **📱 Adaptive Split-Screen Responsiveness**: Custom "Stage Sizer" engine that eliminates CSS flexbox negative coordinate clipping, an off-canvas slide-out properties drawer on screens $\le 960\text{px}$, and an auto-converting floating bottom tool dock on screens $\le 768\text{px}$.
+**Canvas Studio** bridges the gap between **autonomous AI coding agents** (Claude Code, Cursor, Codex, Gemini, Antigravity, ChatGPT) and **professional graphic design & pre-press vector software** (Adobe Illustrator, InDesign).
+
+While modern Large Language Models excel at writing code, they have been handicapped by closed, proprietary canvas widgets (like Claude Canvas and ChatGPT Canvas) that trap designs inside ephemeral chat windows, lack professional print specifications, and offer limited, lossy export capabilities.
+
+**Canvas Studio changes that.** It provides a persistent, local-first, multi-artboard design canvas that lives inside your Git repository. It lets AI agents and humans pair-program visually in real time: the agent edits code or dispatches attention markers via CLI/SSE, the canvas reflects changes in sub-120 milliseconds without a browser refresh, and a headless Chromium verification engine audits the layout against commercial print constraints with zero CSS overflow.
+
+---
+
+## 🏆 Why Canvas Studio Beats Closed AI Canvases
+
+| Feature | Claude Canvas / Artifacts | ChatGPT Canvas | Canva | Adobe Illustrator | **CRAVE LAB // Canvas Studio** |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Open-Source & Local-First** | ❌ Proprietary Cloud | ❌ Proprietary Cloud | ❌ Proprietary Cloud | ❌ Desktop Closed | ✅ **100% Open-Source & Git-Native** |
+| **Pricing & Subscription** | ❌ \$20/month | ❌ \$20/month | ❌ \$15/month | ❌ \$35–\$60/month | ✅ **100% Free Forever (MIT)** |
+| **Multi-Artboard Workbench** | ❌ Single Artifact | ❌ Single Document | ⚠️ Multi-page Slide | ✅ Full Artboards | ✅ **True Multi-Artboard Canvas** |
+| **Illustrator Artboard Tool (`Shift+O`)** | ❌ None | ❌ None | ⚠️ Locked Layouts | ✅ Native | ✅ **8 Drag Handles + 9 Instant Presets** |
+| **Agentic AI Live Pairing** | ⚠️ Full Rewrite | ⚠️ Full Rewrite | ❌ No AI Agent API | ❌ No Agent API | ✅ **Sub-120ms SSE Sync + Ghost Cursor** |
+| **Pre-Press Bleed (3mm) & Crop Marks** | ❌ None | ❌ None | ⚠️ Paid Feature | ✅ Native | ✅ **Built-in Commercial Pre-Press** |
+| **High-Res Rasterization (300 DPI)** | ❌ 72–96 DPI | ❌ 72–96 DPI | ⚠️ Premium Only | ✅ Native | ✅ **1x, 2x Retina & 3x 300 DPI** |
+| **Universal 8-Format Export** | ❌ Code/Copy | ❌ Code/Copy | ⚠️ Limited Formats | ✅ Plugin Needed | ✅ **PDF, PNG, JPG, WebP, SVG, EPS, HTML, JSON** |
+| **Headless Automated Verification** | ❌ None | ❌ None | ❌ None | ❌ None | ✅ **Playwright Zero-Overflow CI Loop** |
+| **Zero External Dependencies** | ❌ Cloud-bound | ❌ Cloud-bound | ❌ Cloud-bound | ❌ 10 GB+ Install | ✅ **Zero Frontend Bundler / Vanilla ESM** |
+
+---
+
+## 📐 System Architecture
+
+```mermaid
+flowchart TD
+    subgraph AI_AGENTS ["🤖 Autonomous AI Agents (Claude, Cursor, Antigravity)"]
+        AgentCode["Direct Code Edits\n(src/menu.html)"]
+        AgentAct["AI Ghost Cursor CLI\n(agent-act.mjs)"]
+        AgentVerify["Automated QA Loop\n(verify-and-build.mjs)"]
+    end
+
+    subgraph LIVE_BACKEND ["⚡ Node.js Local-First Server (localhost:3001)"]
+        SSE["Server-Sent Events (SSE) Watcher\n(~120ms hot-sync)"]
+        SaveAPI["REST Save & Export API\n(/api/export, /api/save)"]
+        ChromiumPool["Warm Headless Chromium Pool\n(Sub-300ms rasterizer)"]
+    end
+
+    subgraph CANVAS_STUDIO ["🎨 Illustrator-Style Canvas Studio UI"]
+        ArtboardEngine["Dynamic Artboard Tool (Shift+O)\nPresets: A4, A5, A3, Letter, 16:9, Square"]
+        CardInspector["Properties Inspector\n(Live Typography & Pricing)"]
+        QRGenerator["Offline Vector QR Generator\n(ISO/IEC 18004 Pure-JS)"]
+        BrandThemes["5 Brand Color Palettes\n& Adaptive 1/2/3 Column Grids"]
+    end
+
+    subgraph OUTPUTS ["📦 8-Format Universal Outputs"]
+        VectorPDF["Vector PDF\n(Print-Ready + 3mm Bleed)"]
+        RasterImages["PNG (1x/2x/300 DPI)\nJPG | WebP"]
+        Vectors["Scalable SVG\nPostScript EPS"]
+        WebData["Single-File HTML\nStructured JSON"]
+    end
+
+    AgentCode -->|File Watcher| SSE
+    SSE -->|Live Hot-Reload| CANVAS_STUDIO
+    AgentAct -->|Aura Focus| CANVAS_STUDIO
+    CANVAS_STUDIO -->|Save| SaveAPI
+    CANVAS_STUDIO -->|Export Request| ChromiumPool
+    ChromiumPool --> OUTPUTS
+    AgentVerify -->|Audit Overflow| ChromiumPool
+```
+
+---
+
+## 🌟 Core Superpowers
+
+### 1. 🎨 Adobe Illustrator-Inspired Artboard Engine (`Shift + O`)
+* **Multi-Artboard Freeform Canvas**: Pan (`H`), zoom (`Z` or `Ctrl + Wheel` from 25% to 200%), and organize dozens of boards side-by-side.
+* **8-Point Interactive Handles**: Drag any corner or side handle to resize artboards on the fly, complete with real-time dimension badges (`794 × 1123 px`).
+* **9 Instant Standard Presets**:
+  * **A4 Portrait** ($794 \times 1123\text{ px}$)
+  * **A4 Landscape** ($1123 \times 794\text{ px}$)
+  * **A5 Portrait / Flyer** ($559 \times 794\text{ px}$)
+  * **A3 Poster** ($1123 \times 1587\text{ px}$)
+  * **US Letter** ($816 \times 1056\text{ px}$)
+  * **US Letter Landscape** ($1056 \times 816\text{ px}$)
+  * **Digital TV 16:9** ($1920 \times 1080\text{ px}$)
+  * **Instagram / Square 1080p** ($1080 \times 1080\text{ px}$)
+  * **Custom Dimensions** (Dynamic interactive drag)
+* **One-Click Actions**: Instant Orientation Swap (Portrait $\leftrightarrow$ Landscape), Duplicate Board, and Delete Board.
+
+### 2. 💾 Universal 8-Format Export Studio (`Ctrl + E`)
+Exports happen in sub-second timeframes powered by a warm headless Chromium singleton worker pool:
+1. **Vector PDF**: Crisp vector typography and embedded vector graphics, with optional pre-press bleed and trim marks.
+2. **Lossless PNG**: Multi-DPI resolution scaling ($1\times$ 96 DPI, $2\times$ Retina 192 DPI, and $3\times$ 300 DPI commercial print).
+3. **Compact JPEG**: High-speed compression for web delivery and online menus.
+4. **Modern WebP**: Next-gen web optimization ($\approx 40\%$ smaller than PNG).
+5. **Scalable SVG**: Vector graphic with inlined styling and assets.
+6. **PostScript EPS**: `%!PS-Adobe-3.0 EPSF-3.0` compliant vector file ready for Adobe Illustrator, CorelDRAW, and commercial offset printers.
+7. **Single-File HTML**: Standalone webpage bundling all vector graphics and brand logos as base64 data URIs.
+8. **Structured JSON**: Export and import complete menu and layout schemas for seamless POS and CMS synchronizations.
+
+### 3. 🖨️ Commercial Pre-Press Mode
+* Injects **3mm ($24\text{ px}$)** bleed margins outside the document boundary.
+* Draws calibrated **$0.5\text{ pt}$ hairline corner trim crop marks** for commercial Guillotine paper cutters.
+* Eliminates white borders and edge clipping during professional printing.
+
+### 4. ⚡ Sub-120ms Real-Time Live Sync & AI Ghost Cursor
+* **Zero-Refresh Hot Reload**: Built on Server-Sent Events (SSE) and native Node filesystem watching (`fs.watch`). When an AI assistant edits `src/menu.html` or CSS tokens, the open canvas updates instantly in $\approx 120\text{ ms}$ without resetting your scroll or selection state.
+* **AI Ghost Cursor (`agent-act.mjs`)**: Autonomous agents can highlight items on the user's screen using a visual cursor badge (`✨ Antigravity AI`) and a pulsating focus aura to communicate what is being edited.
+
+### 5. 🎭 1-Click Culinary Brand Themes & Adaptive Grids
+* Rebrand entire documents across 5 print-calibrated color palettes:
+  * 🌿 **Botanical Forest** (Default — Deep Emerald & Crisp Off-White)
+  * 🌙 **Midnight Gold** (Dark Luxury Steakhouse & Cocktail Bar)
+  * 🍔 **Bistro Crimson** (Smash Burger Joint & Retro Diner)
+  * 🍕 **Artisanal Terracotta** (Wood-Fired Pizzeria & Rustic Bakery)
+  * ☕ **Minimal Monochrome** (Nordic Specialty Roaster & Japanese Minimal)
+* **Adaptive Grid Columns**: Toggle between `1 Col` (ideal for A5 flyers), `2 Col` (standard A4 menus), and `3 Col` (horizontal displays and posters).
+
+### 6. 📱 Zero-Dependency Pure-JS Vector QR Generator
+* Built-in pure JavaScript implementation of ISO/IEC 18004.
+* Generates lightweight, scannable `<svg>` QR codes directly in the browser or terminal with zero npm dependencies or external API calls.
+
+---
+
+## 🤖 For AI Agents & LLMs (`llms.txt`)
+
+If you are an AI assistant (Claude Code, Cursor, Codex, Gemini CLI, ChatGPT Actions), you can control and verify Canvas Studio programmatically:
+
+* **Machine-Readable Spec**: See [`llms.txt`](llms.txt) for direct API specs and CLI contracts.
+* **Live SSE Endpoint**: `GET http://localhost:3001/events`
+* **Programmatic Save**: `POST http://localhost:3001/api/save` with `{ "html": "..." }`
+* **Programmatic Export**: `POST http://localhost:3001/api/export` with `{ "format": "pdf|png|eps|svg", ... }`
+* **Dispatch Ghost Cursor**:
+  ```bash
+  node scripts/agent-act.mjs <board-id> <card-index> "<Message>"
+  ```
+* **Verify Zero CSS Overflow**:
+  ```bash
+  npm run verify
+  ```
 
 ---
 
 ## 🚀 Quickstart
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [Playwright](https://playwright.dev/)
+* [Node.js](https://nodejs.org/) (v18 or higher recommended)
+* [Playwright](https://playwright.dev/)
 
-### Installation
+### 1. Clone & Install
 
 ```bash
 # Clone the repository
@@ -60,11 +171,11 @@ cd canvas-menu-pipeline
 # Install dependencies
 npm install
 
-# Install Playwright browser binaries (if not already installed)
+# Install Playwright browser binaries (one-time setup)
 npx playwright install chromium
 ```
 
-### Launch the Visual Canvas Studio
+### 2. Launch the Visual Canvas Studio
 
 ```bash
 npm start
@@ -72,7 +183,7 @@ npm start
 npm run editor
 ```
 
-Open your browser to **[http://localhost:3001](http://localhost:3001)** (or `http://localhost:3000`).
+Navigate to **[http://localhost:3001](http://localhost:3001)** in any modern browser.
 
 ---
 
@@ -83,13 +194,13 @@ Open your browser to **[http://localhost:3001](http://localhost:3001)** (or `htt
 | `Ctrl + E` | **Export Studio** | Open the 8-Format Universal Export Modal with pre-press options |
 | `V` | **Selection Tool** | Select cards, titles, descriptions, and price pills |
 | `T` | **Type / Text Tool** | Double-click any text for inline `contenteditable` typing |
-| `P` | **Price Tool** | Edit price pills, toggles, and strikethroughs |
-| `B` | **Badge Stamper** | Stamp dietary chips (`BESTSELLER`, `HIGH HEAT 🌶️`, `CHEF PICK ⭐`, etc.) |
+| `P` | **Price Tool** | Edit price pills, currency toggles, and strikethroughs |
+| `B` | **Badge Stamper** | Stamp dietary chips (`BESTSELLER`, `HIGH HEAT 🌶️`, `CHEF PICK ⭐`) |
 | `+` | **Add Card** | Insert a new menu item card into the active artboard |
 | `O` or `Shift + O` | **Artboard Tool** | Enter Illustrator Artboard mode with 8 drag handles & presets |
 | `G` | **Print Safe Guides** | Toggle print-safe margin boundary overlay |
 | `H` | **Hand Tool** | Click and drag to pan across the canvas |
-| `Z` | **Zoom Tool** | Click to zoom in / Ctrl+Wheel to zoom dynamically |
+| `Z` | **Zoom Tool** | Click to zoom in / `Ctrl + Wheel` to zoom dynamically |
 | `I` | **Toggle Inspector** | Open / collapse the Properties Panel or off-canvas drawer |
 | `Ctrl + Z` | **Undo** | Step backward in the document history stack |
 | `Ctrl + Y` | **Redo** | Step forward in the document history stack |
@@ -99,58 +210,37 @@ Open your browser to **[http://localhost:3001](http://localhost:3001)** (or `htt
 
 ---
 
-## 📦 Supported Export Formats
+## 🖨️ Headless Print Engineering & Verification Loop
 
-| Format | Output Type | Best Used For | Features |
-| :--- | :--- | :--- | :--- |
-| **PDF** | Vector | Commercial & Desktop Print | Preserves font vectors, selectable text, 3mm bleed + trim crop marks |
-| **PNG** | Raster | Social, Portfolios, Print | $1\times$ (96 DPI), $2\times$ (192 DPI), $3\times$ (300 DPI Print), transparent background |
-| **JPG** | Raster | Web, Delivery Apps | High-speed compression ($90\%+$ quality) |
-| **WebP** | Raster | Modern Fast Websites | Next-gen web optimization ($\approx 40\%$ lighter than PNG) |
-| **SVG** | Vector | Web & Graphic Designers | Scalable vector with inlined vector assets & SVG `<foreignObject>` |
-| **EPS** | Vector | Commercial Pre-Press | `%!PS-Adobe-3.0 EPSF-3.0` compliant PostScript for Adobe Illustrator |
-| **HTML** | Web Document | Self-Hosted Online Menus | $100\%$ self-contained single file with zero external asset dependencies |
-| **JSON** | Data | POS & Online Ordering Sync | Structured menu schema (`boards`, `categories`, `items`, `prices`, `badges`) |
-
----
-
-## 🖨️ Print Engineering & Verification
-
-The project includes an automated headless verification engine built with Playwright:
+Canvas Studio includes a fully automated verification engine built on Playwright:
 
 ```bash
 # Run visual verification and compile production vector PDF
 npm run build:pdf
 ```
 
-### What the Verification Pipeline Does:
+### Verification Pipeline Guarantees:
 1. Loads [`src/menu.html`](src/menu.html) in headless Chromium with high-DPI ($2\times$ Retina) scale factor.
 2. Dynamically extracts `--page-width` and `--page-height` from the document root.
-3. Audits every artboard for overflow: checks `scrollHeight <= clientHeight` and `scrollWidth <= clientWidth`.
+3. Audits every artboard for overflow: asserts `scrollHeight <= clientHeight` and `scrollWidth <= clientWidth`.
 4. Saves pixel-perfect $2\times$ Retina preview images to `output/page-*.png`.
 5. Compiles [`output/crave-lab-menu-a4-production.pdf`](output/crave-lab-menu-a4-production.pdf) with embedded vector typography, precise print margins, and zero clipping.
 
 ---
 
-## 🧪 Testing & CI
+## 🧪 Automated Test Suite
 
 Run the automated test suites:
 
 ```bash
-# Run the entire test suite (Responsive + Artboard + 8 Export Formats)
+# Run all tests (Responsive + Artboard + 8 Export Formats)
 npm test
 
-# Or run individual suites:
-npm run test:responsive
-npm run test:artboard
-npm run test:exports
+# Run individual suites:
+npm run test:responsive   # Audits 5 viewport sizes (Mobile, Tablet, Split, Desktop, Ultrawide)
+npm run test:artboard     # Tests resize handles, presets, orientation swap, duplicate, delete
+npm run test:exports      # Tests PDF, PNG 1x/2x/3x, JPG, WebP, SVG, EPS, HTML, and JSON exports
 ```
-
-### GitHub Actions CI
-The repository includes a ready-to-run GitHub Actions workflow in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) that:
-1. Audits print compliance on Ubuntu with zero overflow.
-2. Boots the local server and runs all responsive, artboard, and export tests.
-3. Automatically uploads the production vector PDF as a downloadable workflow artifact.
 
 ---
 
@@ -166,7 +256,7 @@ canvas-menu-pipeline/
 │   ├── lightning.svg
 │   ├── qr-code.svg
 │   └── star.svg
-├── editor/                       # Canvas Design Studio frontend
+├── editor/                       # Canvas Design Studio frontend (Zero-build ESM)
 │   ├── index.html                # Studio workbench & Export Studio modal
 │   ├── editor.css                # Dark theme, modal styles, responsive rules
 │   ├── editor.js                 # Interactive engine, presets, drag-resize, export
@@ -183,9 +273,10 @@ canvas-menu-pipeline/
 │   └── test-exports.mjs          # 8-format export & UI test suite
 ├── src/                          # Master print template
 │   └── menu.html                 # 5-page modular menu with 5 brand themes
+├── llms.txt                      # Machine-readable spec for AI agents & LLMs
 ├── LICENSE                       # MIT License
 ├── package.json                  # Package scripts & dependencies (v2.0.0)
-└── README.md                     # Project documentation
+└── README.md                     # Project documentation & marketing guide
 ```
 
 ---
