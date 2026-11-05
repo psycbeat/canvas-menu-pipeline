@@ -1,0 +1,31 @@
+{
+  "name": "canvas-menu-pipeline",
+  "version": "1.0.0",
+  "description": "High-fidelity Illustrator-style Canvas Studio, print engineering verification loop, and dynamic vector PDF compiler.",
+  "type": "module",
+  "main": "scripts/editor-server.mjs",
+  "scripts": {
+    "start": "node scripts/editor-server.mjs",
+    "editor": "node scripts/editor-server.mjs",
+    "build:pdf": "node scripts/verify-and-build.mjs",
+    "verify": "node scripts/verify-and-build.mjs",
+    "test:responsive": "node scripts/test-responsive.mjs",
+    "test:artboard": "node scripts/test-artboard-tool.mjs",
+    "test": "node scripts/test-responsive.mjs && node scripts/test-artboard-tool.mjs"
+  },
+  "keywords": [
+    "canvas",
+    "illustrator",
+    "menu-design",
+    "print-engineering",
+    "playwright",
+    "pdf-generation",
+    "live-sync",
+    "ai-collaboration"
+  ],
+  "author": "CRAVE LAB",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.49.0"
+  }
+}

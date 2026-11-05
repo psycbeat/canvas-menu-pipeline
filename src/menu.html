@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRAVE LAB — Modern Minimal Print Menu</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      /* Dimensional Tokens */
+      --page-width: 794px;
+      --page-height: 1123px;
+
+      /* Modern Minimal Botanical Green Palette */
+      --color-bg-primary: #FBFDFB;
+      --color-bg-card: #FFFFFF;
+      --color-bg-card-hero: #F4FAF5;
+      --color-border-card: #E5EBE6;
+      --color-border-subtle: #E2ECE4;
+      --color-accent-primary: #15803D;
+      --color-accent-dark: #14532D;
+      --color-accent-warm: #16A34A;
+      --color-strike-red: #D94638;
+      
+      /* Typography Colors */
+      --color-text-title: #141414;
+      --color-text-body: #555555;
+      --color-text-muted: #888888;
+      --color-text-dim: #9E9E9E;
+
+      /* Typography Tokens */
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #EFEFEA;
+      font-family: var(--font-body);
+      color: var(--color-text-title);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 24px 0;
+    }
+
+    @page {
+      size: 794px 1123px;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        gap: 0;
+        background: transparent;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .page {
+        page-break-after: always;
+        break-after: page;
+        box-shadow: none !important;
+        border: none !important;
+      }
+    }
+
+    /* Page Container */
+    .page {
+      width: var(--page-width);
+      height: var(--page-height);
+      max-width: var(--page-width);
+      max-height: var(--page-height);
+      background-color: var(--color-bg-primary);
+      position: relative;
+      overflow: hidden;
+      contain: paint;
+      padding: 32px 36px 28px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+      border: 1px solid #ECEAE3;
+    }
+
+    /* Subtle Minimal Architectural Grid Pattern */
+    .page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle at top right, rgba(21, 128, 61, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Header Bar */
+    .header-bar {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo-img {
+      height: 38px;
+      width: auto;
+    }
+
+    .page-index-pill {
+      background: #FFFFFF;
+      border: 1px solid #BBF7D0;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--color-accent-primary);
+      box-shadow: 0 1px 4px rgba(21, 128, 61, 0.06);
+    }
+
+    /* Category Banner */
+    .category-banner {
+      position: relative;
+      z-index: 1;
+      margin-top: 14px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border-card);
+      border-left: 4px solid var(--color-accent-primary);
+      padding: 12px 20px;
+      border-radius: 6px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.02);
+    }
+
+    .category-title-group h1.outlined-title {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-text-title);
+      line-height: 1;
+    }
+
+    .category-title-group h1.outlined-title span.solid-accent {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-style: italic;
+      color: var(--color-accent-primary);
+      text-transform: capitalize;
+      letter-spacing: 0.5px;
+    }
+
+    .category-subtitle {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      margin-top: 5px;
+      white-space: nowrap;
+    }
+
+    .category-badge-chip {
+      background: #F4F2EC;
+      color: #333333;
+      border: 1px solid #DFDCD4;
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+
+    /* Content Grid (2 columns x 3 rows) */
+    .items-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      flex: 1;
+      margin-bottom: 14px;
+    }
+
+    .items-grid-3x2 {
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+    }
+
+    /* Menu Item Card */
+    .menu-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border-card);
+      border-radius: 8px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      transition: all 0.15s ease;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .card-title-wrap {
+      flex: 1;
+      padding-right: 8px;
+    }
+
+    .item-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: var(--color-text-title);
+      text-transform: uppercase;
+      line-height: 1.18;
+    }
+
+    .item-tag-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 5px;
+    }
+
+    .tag-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .tag-spicy {
+      background: #FEF2F2;
+      color: #991B1B;
+      border: 1px solid #FEE2E2;
+    }
+
+    .tag-popular {
+      background: #FFFBEB;
+      color: #92400E;
+      border: 1px solid #FEF3C7;
+    }
+
+    .tag-signature {
+      background: #F5F4F0;
+      color: #444444;
+      border: 1px solid #E8E5DC;
+    }
+
+    .tag-chip img {
+      width: 10px;
+      height: 10px;
+    }
+
+    .item-desc {
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: var(--color-text-body);
+      margin-top: 6px;
+      margin-bottom: 8px;
+    }
+
+    /* Price Section with Red Strikethrough & Modern Minimal Price Pill */
+    .card-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid #F3F1EC;
+    }
+
+    .price-strike-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .old-price {
+      font-family: var(--font-display);
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--color-text-dim);
+      position: relative;
+      letter-spacing: 0.3px;
+    }
+
+    .old-price::after {
+      content: '';
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: 50%;
+      height: 1.5px;
+      background: var(--color-strike-red);
+      transform: rotate(-10deg);
+      border-radius: 1px;
+    }
+
+    .price-pill {
+      background: var(--color-accent-primary);
+      color: #FFFFFF;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      padding: 3px 12px;
+      border-radius: 9999px;
+      box-shadow: 0 2px 8px rgba(21, 128, 61, 0.25);
+      line-height: 1.15;
+    }
+
+    /* Hero Item Card */
+    .menu-card.hero-item {
+      background: var(--color-bg-card-hero);
+      border: 1.5px solid #86EFAC;
+      box-shadow: 0 2px 10px rgba(21, 128, 61, 0.06);
+    }
+
+    .hero-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--color-accent-primary);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      padding: 3px 10px;
+      border-bottom-left-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    /* Footer Component */
+    .menu-footer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-border-subtle);
+      background: transparent;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .order-url {
+      font-family: var(--font-display);
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--color-accent-dark);
+      text-transform: uppercase;
+    }
+
+    .allergen-text {
+      font-size: 9px;
+      color: var(--color-text-muted);
+      letter-spacing: 0.2px;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .qr-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      padding: 4px 10px 4px 6px;
+      border-radius: 6px;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .qr-badge img {
+      width: 26px;
+      height: 26px;
+    }
+
+    .qr-label {
+      font-size: 8px;
+      font-weight: 700;
+      color: #444444;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+    .qr-label span {
+      color: var(--color-accent-warm);
+      display: block;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= PAGE 1: ROLLS ================= -->
+  <section class="page" id="page-1">
+    <header class="header-bar">
+      <div class="brand-group">
+        <img src="../assets/brand-logo.svg" alt="CRAVE LAB" class="brand-logo-img">
+      </div>
+      <div class="page-index-pill">01 // 05</div>
+    </header>
+
+    <div class="category-banner">
+      <div class="category-title-group">
+        <h1 class="outlined-title">GOURMET <span class="solid-accent">Rolls</span></h1>
+        <p class="category-subtitle">Crispy Flaky Parathas &bull; Fire-Smoked Fillings &bull; House Slaw</p>
+      </div>
+      <div class="category-badge-chip">HAND-ROLLED FRESH</div>
+    </div>
+
+    <div class="items-grid items-grid-3x2">
+      <!-- Item 1 (Hero) -->
+      <article class="menu-card hero-item">
+        <div class="hero-badge">BESTSELLER</div>
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Nashville Hot Chicken Roll 🔥</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-spicy"><img src="../assets/flame.svg" alt="spicy"> HIGH HEAT</span>
+              <span class="tag-chip tag-popular"><img src="../assets/star.svg" alt="star"> CHEF PICK</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Crispy fried chicken tenders tossed in ghost chili oil, tangy dill pickles, hot honey drizzle & cheddar melt wrapped in buttered flaky paratha.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$14.50</span>
+          </div>
+          <span class="price-pill">$11.90</span>
+        </div>
+      </article>
+
+      <!-- Item 2 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Smoked Butter Chicken Roll</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular"><img src="../assets/star.svg" alt="star"> CROWD FAV</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Charcoal-tandoori chicken morsels simmered in velvety makhani glaze, red pickled shallots, fresh coriander cream & crispy sev crunch.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$13.90</span>
+          </div>
+          <span class="price-pill">$11.20</span>
+        </div>
+      </article>
+
+      <!-- Item 3 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Slow Brisket BBQ Roll</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">14-HR SMOKE</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Shredded oak-smoked beef brisket, bourbon molasses BBQ sauce, crispy tobacco onions, charred jalapenos & smoked gouda cheese.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$16.00</span>
+          </div>
+          <span class="price-pill">$12.90</span>
+        </div>
+      </article>
+
+      <!-- Item 4 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Paneer Tikka Crunch Roll</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">VEG DELIGHT</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Grilled cottage cheese cubes in spiced yoghurt marinade, roasted bell peppers, fresh mint chutney relish & pomegranate crunch.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$12.50</span>
+          </div>
+          <span class="price-pill">$9.90</span>
+        </div>
+      </article>
+
+      <!-- Item 5 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Black Truffle Garlic Mayo Roll</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">LUXURY LINE</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Sliced herb-roasted chicken breast, sautéed wild mushrooms, black truffle aioli, baby rocket leaves & melted parmesan crisps.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$15.50</span>
+          </div>
+          <span class="price-pill">$12.50</span>
+        </div>
+      </article>
+
+      <!-- Item 6 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Spicy Lamb Seekh Roll</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-spicy"><img src="../assets/flame.svg" alt="spicy"> SPICY</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Double flame-grilled lamb seekh skewers, cumin-spiced yoghurt drizzle, crispy spiced potatoes & shredded green chili slaw.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$15.00</span>
+          </div>
+          <span class="price-pill">$12.20</span>
+        </div>
+      </article>
+    </div>
+
+    <footer class="menu-footer">
+      <div class="footer-left">
+        <span class="order-url">CRAVELAB.MENU // ORDER DIRECT & SAVE 15%</span>
+        <span class="allergen-text">All rolls prepared fresh to order. Please alert our staff to any sesame, dairy, or gluten allergies.</span>
+      </div>
+      <div class="footer-right">
+        <div class="qr-badge">
+          <img src="../assets/qr-code.svg" alt="Scan to Order">
+          <div class="qr-label"><span>SCAN QR</span> MOBILE ORDER</div>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ================= PAGE 2: SMASH BURGERS ================= -->
+  <section class="page" id="page-2">
+    <header class="header-bar">
+      <div class="brand-group">
+        <img src="../assets/brand-logo.svg" alt="CRAVE LAB" class="brand-logo-img">
+      </div>
+      <div class="page-index-pill">02 // 05</div>
+    </header>
+
+    <div class="category-banner">
+      <div class="category-title-group">
+        <h1 class="outlined-title">SMASH <span class="solid-accent">Burgers</span></h1>
+        <p class="category-subtitle">Crispy Lacy Edges &bull; 100% Angus Chuck &bull; Griddled Brioche</p>
+      </div>
+      <div class="category-badge-chip">CAST IRON SEARED</div>
+    </div>
+
+    <div class="items-grid items-grid-3x2">
+      <!-- Item 1 (Hero) -->
+      <article class="menu-card hero-item">
+        <div class="hero-badge">BESTSELLER</div>
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">The OG Double Smash</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular"><img src="../assets/star.svg" alt="star"> ICONIC</span>
+              <span class="tag-chip tag-signature">DOUBLE ANGUS</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Two 3oz smash patties with ultra-crispy edges, double American cheese, dill pickles, grilled sweet onions & secret yellow Crave sauce.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$15.50</span>
+          </div>
+          <span class="price-pill">$12.50</span>
+        </div>
+      </article>
+
+      <!-- Item 2 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Oklahoma Sweet Onion Smash</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular">TRADITIONAL</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Paper-thin sweet Vidalia onions pressed deep into sizzling beef patties, double melted cheddar, mustard relish & toasted potato bun.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$14.90</span>
+          </div>
+          <span class="price-pill">$11.90</span>
+        </div>
+      </article>
+
+      <!-- Item 3 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Triple Bacon Jam Smash</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">HEAVYWEIGHT</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Three crispy smash patties, hardwood smoked bacon strips, warm maple-bacon onion jam, smoked provolone & garlic butter drip.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$18.90</span>
+          </div>
+          <span class="price-pill">$15.20</span>
+        </div>
+      </article>
+
+      <!-- Item 4 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Truffle Shroom Smash</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">GOURMET</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Double Angus beef, butter-roasted cremini mushrooms, aged Swiss Gruyere, black winter truffle aioli & crispy shallot straw.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$16.50</span>
+          </div>
+          <span class="price-pill">$13.50</span>
+        </div>
+      </article>
+
+      <!-- Item 5 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Diablo Ghost Pepper Smash</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-spicy"><img src="../assets/flame.svg" alt="spicy"> HIGH HEAT</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Double smash beef crusted in habanero salt, pepper jack cheese, pickled jalapeño coins, roasted serrano paste & fire mayo.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$15.90</span>
+          </div>
+          <span class="price-pill">$12.90</span>
+        </div>
+      </article>
+
+      <!-- Item 6 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">BBQ Onion Ring Smash</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular">SUPER CRUNCH</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Double beef smash, golden beer-battered onion ring, sharp Wisconsin cheddar, smokey hickory BBQ sauce & garlic herb spread.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$16.00</span>
+          </div>
+          <span class="price-pill">$12.90</span>
+        </div>
+      </article>
+    </div>
+
+    <footer class="menu-footer">
+      <div class="footer-left">
+        <span class="order-url">CRAVELAB.MENU // SOURCING: 100% LOCAL PASTURE-RAISED ANGUS</span>
+        <span class="allergen-text">Certified Halal beef. Gluten-free lettuce wraps available upon request.</span>
+      </div>
+      <div class="footer-right">
+        <div class="qr-badge">
+          <img src="../assets/qr-code.svg" alt="Scan to Order">
+          <div class="qr-label"><span>SCAN QR</span> FAST TRACK</div>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ================= PAGE 3: BURGERS ================= -->
+  <section class="page" id="page-3">
+    <header class="header-bar">
+      <div class="brand-group">
+        <img src="../assets/brand-logo.svg" alt="CRAVE LAB" class="brand-logo-img">
+      </div>
+      <div class="page-index-pill">03 // 05</div>
+    </header>
+
+    <div class="category-banner">
+      <div class="category-title-group">
+        <h1 class="outlined-title">GOURMET <span class="solid-accent">Burgers</span></h1>
+        <p class="category-subtitle">Handcrafted Thick Cuts &bull; Southern Fried Bird &bull; Plant Masterpieces</p>
+      </div>
+      <div class="category-badge-chip">CHEF STACKED</div>
+    </div>
+
+    <div class="items-grid items-grid-3x2">
+      <!-- Item 1 (Hero) -->
+      <article class="menu-card hero-item">
+        <div class="hero-badge">BESTSELLER</div>
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Southern Crispy Buttermilk Bird</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular"><img src="../assets/star.svg" alt="star"> #1 SELLER</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">24-hour buttermilk soaked chicken thigh double-dredged for maximum crunch, Nashville spice dusting, sweet honey butter, house pickles & creamy slaw.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$16.50</span>
+          </div>
+          <span class="price-pill">$13.20</span>
+        </div>
+      </article>
+
+      <!-- Item 2 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">The Beast Master Stack</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">THICK 7OZ</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">7oz prime beef patty, thick cut smoked pork belly or beef bacon, melted double gouda, beer mustard, tomato relish & crisp iceberg.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$18.00</span>
+          </div>
+          <span class="price-pill">$14.90</span>
+        </div>
+      </article>
+
+      <!-- Item 3 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Korean Gochujang Crunch</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-spicy"><img src="../assets/flame.svg" alt="spicy"> SWEET & HEAT</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Crispy fried chicken breast drenched in sticky garlic gochujang glaze, house fermented kimchi slaw, toasted sesame seeds & kewpie mayo.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$16.20</span>
+          </div>
+          <span class="price-pill">$13.50</span>
+        </div>
+      </article>
+
+      <!-- Item 4 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Wagyu Black Gold Burger</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">MBS 7+ WAGYU</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Pure Wagyu beef patty, black garlic glaze, melted taleggio cheese, truffle-infused caramelized onions & baby spinach on toasted milk bun.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$21.00</span>
+          </div>
+          <span class="price-pill">$16.80</span>
+        </div>
+      </article>
+
+      <!-- Item 5 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Golden Halloumi Veggie Crunch</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">VEGETARIAN</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Thick griddled Cypriot halloumi slab, avocado mash, roasted red peppers, balsamic onion jam & garlic herb labneh on brioche.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$15.50</span>
+          </div>
+          <span class="price-pill">$12.40</span>
+        </div>
+      </article>
+
+      <!-- Item 6 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Smokey BBQ Ranch Burger</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular">CLASSIC</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Prime beef patty, smoked Monterey Jack cheese, crispy onion frizzles, Texas mesquite BBQ sauce & cool house herb buttermilk ranch.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$16.00</span>
+          </div>
+          <span class="price-pill">$12.90</span>
+        </div>
+      </article>
+    </div>
+
+    <footer class="menu-footer">
+      <div class="footer-left">
+        <span class="order-url">CRAVELAB.MENU // CUSTOMIZE: EXTRA PATTY +$4.00 &bull; TRUFFLE DIP +$2.50</span>
+        <span class="allergen-text">Buns freshly baked daily by artisan bakers. Vegan potato bun substitution available free.</span>
+      </div>
+      <div class="footer-right">
+        <div class="qr-badge">
+          <img src="../assets/qr-code.svg" alt="Scan to Order">
+          <div class="qr-label"><span>SCAN QR</span> TABLE SERVICE</div>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ================= PAGE 4: BOXES ================= -->
+  <section class="page" id="page-4">
+    <header class="header-bar">
+      <div class="brand-group">
+        <img src="../assets/brand-logo.svg" alt="CRAVE LAB" class="brand-logo-img">
+      </div>
+      <div class="page-index-pill">04 // 05</div>
+    </header>
+
+    <div class="category-banner">
+      <div class="category-title-group">
+        <h1 class="outlined-title">LOADED <span class="solid-accent">Boxes</span></h1>
+        <p class="category-subtitle">Heavyweight Combos &bull; Seasoned Waffle Fries &bull; Signature Sauces</p>
+      </div>
+      <div class="category-badge-chip">FULL MEAL DROPS</div>
+    </div>
+
+    <div class="items-grid items-grid-3x2">
+      <!-- Item 1 (Hero) -->
+      <article class="menu-card hero-item">
+        <div class="hero-badge">BEST VALUE</div>
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">The Solo Smash Box</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular"><img src="../assets/star.svg" alt="star"> ALL-IN-ONE</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Includes The OG Double Smash Burger, large golden seasoned skin-on fries, 3 mozzarella bites, house Crave dipping sauce & cold craft soda.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$22.50</span>
+          </div>
+          <span class="price-pill">$17.90</span>
+        </div>
+      </article>
+
+      <!-- Item 2 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Nashville Tender Box</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-spicy"><img src="../assets/flame.svg" alt="spicy"> JUMBO 4PC</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">4 colossal buttermilk fried chicken tenders dusted in fiery Nashville spice, grilled Texas toast, pickle spears, waffle fries & 2 dipping sauces.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$21.00</span>
+          </div>
+          <span class="price-pill">$16.50</span>
+        </div>
+      </article>
+
+      <!-- Item 3 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">The Dual Roll Feast Box</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">ROLL LOVERS</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Pick any 2 gourmet paratha rolls, accompanied by spiced masala fries, minted cucumber yoghurt dip, pickled shallots & 2 fountain sodas.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$29.00</span>
+          </div>
+          <span class="price-pill">$23.50</span>
+        </div>
+      </article>
+
+      <!-- Item 4 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Ultimate Loaded Munch Box</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular">SNACK HEAVEN</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Crispy popcorn chicken, 4 mac & cheese bites, loaded chili cheese fries, onion rings, truffle aioli & garlic herb mayo tubs.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$23.50</span>
+          </div>
+          <span class="price-pill">$18.90</span>
+        </div>
+      </article>
+
+      <!-- Item 5 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Family Crave Box (Feeds 4)</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">MEGAPACK</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">2 Double Smash Burgers, 2 Crispy Buttermilk Birds, 2 giant loaded fries, 12 crispy tenders, 4 dipping sauces & 4 canned drinks.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$68.00</span>
+          </div>
+          <span class="price-pill">$54.90</span>
+        </div>
+      </article>
+
+      <!-- Item 6 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Loaded Halloumi & Dip Box</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">VEGETARIAN</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">6 crispy halloumi fries with honey chili drizzle, sweet potato fries, falafel bites, tzatziki dip & toasted zaatar flatbread.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$20.00</span>
+          </div>
+          <span class="price-pill">$15.90</span>
+        </div>
+      </article>
+    </div>
+
+    <footer class="menu-footer">
+      <div class="footer-left">
+        <span class="order-url">CRAVELAB.MENU // ALL BOXES COME WITH SCRATCH HOUSE DIPS</span>
+        <span class="allergen-text">Sauce tubs are sealed and 100% scratch-made in-house every morning.</span>
+      </div>
+      <div class="footer-right">
+        <div class="qr-badge">
+          <img src="../assets/qr-code.svg" alt="Scan to Order">
+          <div class="qr-label"><span>SCAN QR</span> COMBO PERKS</div>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ================= PAGE 5: DEALS ================= -->
+  <section class="page" id="page-5">
+    <header class="header-bar">
+      <div class="brand-group">
+        <img src="../assets/brand-logo.svg" alt="CRAVE LAB" class="brand-logo-img">
+      </div>
+      <div class="page-index-pill">05 // 05</div>
+    </header>
+
+    <div class="category-banner">
+      <div class="category-title-group">
+        <h1 class="outlined-title">SPECIAL <span class="solid-accent">Deals</span></h1>
+        <p class="category-subtitle">Limited Time Drops &bull; Duo Crave Combos &bull; Night Owl Specials</p>
+      </div>
+      <div class="category-badge-chip">UNBEATABLE VALUE</div>
+    </div>
+
+    <div class="items-grid items-grid-3x2">
+      <!-- Item 1 (Hero) -->
+      <article class="menu-card hero-item">
+        <div class="hero-badge">DAILY 11AM-3PM</div>
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">The Lunch Rush Steal</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular"><img src="../assets/lightning.svg" alt="deal"> FAST COMBO</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Single Smash Burger or Classic Roll + Hot Fries + Fountain Drink. Guaranteed served in under 7 minutes for your busy work lunch.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$16.50</span>
+          </div>
+          <span class="price-pill">$11.50</span>
+        </div>
+      </article>
+
+      <!-- Item 2 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">The Duo Crave Date Night</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular">PERFECT PAIR</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Choice of any 2 Burgers or Rolls + 1 Shared Giant Truffle Loaded Fries + 2 Gourmet Milkshakes (Nutella Crunch / Biscoff).</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$44.00</span>
+          </div>
+          <span class="price-pill">$34.90</span>
+        </div>
+      </article>
+
+      <!-- Item 3 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Midnight Munchies Drop</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">AFTER 10 PM</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Double Oklahoma Smash + 3 Crispy Nashville Tenders + Cheese-smothered waffle fries + 1 Energy drink or Shake.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$26.00</span>
+          </div>
+          <span class="price-pill">$19.90</span>
+        </div>
+      </article>
+
+      <!-- Item 4 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Student Saver Pass</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">VALID ID</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Any Gourmet Roll or Single Smash Burger with small fries and iced tea. Available all day with active student verification.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$14.00</span>
+          </div>
+          <span class="price-pill">$9.99</span>
+        </div>
+      </article>
+
+      <!-- Item 5 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Game Day Squad Feast</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-signature">FEEDS 6</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">3 Double Smashes, 3 Loaded Rolls, 24 Bone-in Crispy Wings, 2 XL seasoned fries & 6 dipping pots with 2L soda.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$98.00</span>
+          </div>
+          <span class="price-pill">$79.90</span>
+        </div>
+      </article>
+
+      <!-- Item 6 -->
+      <article class="menu-card">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h2 class="item-title">Sweet Ending Churro Add-On</h2>
+            <div class="item-tag-row">
+              <span class="tag-chip tag-popular">DESSERT DEAL</span>
+            </div>
+          </div>
+        </div>
+        <p class="item-desc">Add 4 crispy cinnamon churro loops with warm salted caramel & Belgian chocolate dip to any burger or meal box order.</p>
+        <div class="card-price-row">
+          <div class="price-strike-box">
+            <span class="old-price">$8.50</span>
+          </div>
+          <span class="price-pill">$5.50</span>
+        </div>
+      </article>
+    </div>
+
+    <footer class="menu-footer">
+      <div class="footer-left">
+        <span class="order-url">CRAVELAB.MENU // DOWNLOAD THE CRAVE APP FOR VIP DROPS</span>
+        <span class="allergen-text">Deals cannot be combined with other promotional coupons or delivery app discounts.</span>
+      </div>
+      <div class="footer-right">
+        <div class="qr-badge">
+          <img src="../assets/qr-code.svg" alt="Scan to Order">
+          <div class="qr-label"><span>GET APP</span> VIP DROPS</div>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+</body>
+</html>

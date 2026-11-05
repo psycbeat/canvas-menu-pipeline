@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+.package-lock.json
+
+# Logs & Temporary Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Artifacts
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Temporary Test Outputs (Keep production PDF & sample page screenshots)
+output/test-*.png
+output/drawer-*.png
+output/responsive-*.png

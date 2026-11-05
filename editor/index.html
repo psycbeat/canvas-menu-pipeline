@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRAVE LAB // Illustrator Canvas Studio</title>
+  <link rel="stylesheet" href="editor.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="illustrator-theme">
+
+  <!-- TOP APPLICATION BAR -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="app-brand">
+        <span class="brand-badge">Ai</span>
+        <span class="brand-title">CANVAS <strong>STUDIO</strong></span>
+      </div>
+      <div class="doc-meta">
+        <span class="doc-name">crave-lab-menu-a4.html</span>
+        <span class="doc-badge" id="docBadge">A4 &bull; 794 &times; 1123 px</span>
+      </div>
+    </div>
+
+    <!-- ARTBOARD SELECTOR TABS -->
+    <nav class="artboard-tabs" id="artboardTabs">
+      <button class="tab-btn active" data-board="page-1"><span class="tab-num">01</span><span class="tab-label"> Rolls</span></button>
+      <button class="tab-btn" data-board="page-2"><span class="tab-num">02</span><span class="tab-label"> Smash</span></button>
+      <button class="tab-btn" data-board="page-3"><span class="tab-num">03</span><span class="tab-label"> Burgers</span></button>
+      <button class="tab-btn" data-board="page-4"><span class="tab-num">04</span><span class="tab-label"> Boxes</span></button>
+      <button class="tab-btn" data-board="page-5"><span class="tab-num">05</span><span class="tab-label"> Deals</span></button>
+      <button class="tab-btn all-boards-btn" data-board="all" title="View all boards in grid"><span class="tab-num">&#9638;</span><span class="tab-label"> All Boards</span></button>
+    </nav>
+
+    <!-- HEADER RIGHT CONTROLS -->
+    <div class="header-right">
+      <div class="live-sync-indicator" id="liveSyncBadge">
+        <span class="pulse-dot"></span>
+        <span class="sync-text">LIVE SYNC</span>
+      </div>
+
+      <div class="zoom-controls">
+        <button id="btnZoomOut" title="Zoom Out (Ctrl -)">-</button>
+        <span id="zoomValue">85%</span>
+        <button id="btnZoomIn" title="Zoom In (Ctrl +)">+</button>
+        <button id="btnZoomFit" title="Fit to Screen">Fit</button>
+      </div>
+
+      <div class="history-controls">
+        <button id="btnUndo" title="Undo (Ctrl+Z)" disabled>&#8617;</button>
+        <button id="btnRedo" title="Redo (Ctrl+Y)" disabled>&#8618;</button>
+      </div>
+
+      <button id="btnSaveHtml" class="btn btn-secondary" title="Save HTML (Ctrl+S)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+        <span class="btn-text">Save</span>
+      </button>
+
+      <button id="btnCompilePdf" class="btn btn-primary" title="Compile Production PDF">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        <span class="btn-text">PDF</span>
+      </button>
+
+      <button id="btnToggleInspector" class="btn btn-secondary" title="Toggle Properties Panel (I)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+        <span class="btn-text-panel">Props</span>
+      </button>
+
+      <div class="status-pill status-ready" id="statusPill">READY</div>
+    </div>
+  </header>
+
+  <!-- MAIN WORKBENCH -->
+  <div class="workbench">
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    
+    <!-- LEFT TOOL PALETTE (ILLUSTRATOR STYLE) -->
+    <aside class="tool-palette" id="toolPalette">
+      <button class="tool-btn active" data-tool="select" title="Selection Tool (V)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 2l6.5 18 3.5-7 7-3.5L3 2z"/></svg>
+        <span class="tool-key">V</span>
+      </button>
+
+      <button class="tool-btn" data-tool="text" title="Type & Text Tool (T)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5 4v3h5.5v12h3V7H19V4H5z"/></svg>
+        <span class="tool-key">T</span>
+      </button>
+
+      <button class="tool-btn" data-tool="price" title="Price Pill & Strikethrough Tool (P)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V18h-2v-1.07A4.47 4.47 0 0 1 8 13.5l1.87-.77a2.6 2.6 0 0 0 2.13 2.27V12.1l-2.43-.68A4.47 4.47 0 0 1 7 8.5 4.5 4.5 0 0 1 11 4.07V3h2v1.07A4.47 4.47 0 0 1 16 7.5l-1.87.77a2.6 2.6 0 0 0-2.13-2.27v2.9l2.43.68A4.47 4.47 0 0 1 17 12.5a4.5 4.5 0 0 1-4 4.43z"/></svg>
+        <span class="tool-key">P</span>
+      </button>
+
+      <button class="tool-btn" data-tool="badge" title="Badge & Tag Stamper (B)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span class="tool-key">B</span>
+      </button>
+
+      <div class="tool-separator"></div>
+
+      <button class="tool-btn" data-tool="add-card" title="Add Menu Card (+)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span class="tool-key">+</span>
+      </button>
+
+      <button class="tool-btn" data-tool="artboard" id="toolArtboard" title="Artboard Tool (Shift+O)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="5" y="5" width="14" height="14" rx="1"></rect>
+          <line x1="2" y1="5" x2="5" y2="5"></line>
+          <line x1="19" y1="5" x2="22" y2="5"></line>
+          <line x1="2" y1="19" x2="5" y2="19"></line>
+          <line x1="19" y1="19" x2="22" y2="19"></line>
+          <line x1="5" y1="2" x2="5" y2="5"></line>
+          <line x1="19" y1="2" x2="19" y2="5"></line>
+          <line x1="5" y1="19" x2="5" y2="22"></line>
+          <line x1="19" y1="19" x2="19" y2="22"></line>
+        </svg>
+        <span class="tool-key">O</span>
+      </button>
+
+      <button class="tool-btn" data-tool="guides" id="toggleGuidesBtn" title="Toggle Print Safe Zone Guides (G)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 2"></rect></svg>
+        <span class="tool-key">G</span>
+      </button>
+
+      <div class="tool-separator"></div>
+
+      <button class="tool-btn" data-tool="hand" title="Hand Tool / Pan (H)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 11V7a2 2 0 0 0-4 0v3.5a.5.5 0 0 1-1 0V4a2 2 0 0 0-4 0v6.5a.5.5 0 0 1-1 0V6a2 2 0 0 0-4 0v9.5c0 4.69 3.81 8.5 8.5 8.5s8.5-3.81 8.5-8.5V11a2 2 0 0 0-2-2c-.5 0-.96.18-1.32.48z"/></svg>
+        <span class="tool-key">H</span>
+      </button>
+
+      <button class="tool-btn" data-tool="zoom" title="Zoom Tool (Z)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <span class="tool-key">Z</span>
+      </button>
+    </aside>
+
+    <!-- CENTER ARTBOARD VIEWPORT -->
+    <main class="canvas-viewport" id="canvasViewport">
+      <div class="canvas-stage-sizer" id="stageSizer">
+        <div class="canvas-stage" id="canvasStage">
+          <!-- AI Ghost Cursor Overlay -->
+          <div class="ai-ghost-cursor" id="aiGhostCursor" style="display: none;">
+            <svg class="cursor-pointer" width="22" height="22" viewBox="0 0 24 24">
+              <path d="M3 2l6.5 18 3.5-7 7-3.5L3 2z" fill="#9333EA" stroke="#FFFFFF" stroke-width="1.5"/>
+            </svg>
+            <div class="cursor-badge">
+              <span class="ai-sparkle">&#10024;</span>
+              <span class="ai-name">Antigravity AI</span>
+              <span class="ai-action-text" id="aiActionText">Editing live...</span>
+            </div>
+          </div>
+
+          <!-- Floating Transform Bounding Box Handle -->
+          <div class="transform-overlay" id="transformOverlay" style="display: none;">
+            <div class="handle top-left"></div>
+            <div class="handle top-right"></div>
+            <div class="handle bottom-left"></div>
+            <div class="handle bottom-right"></div>
+            <div class="label-pill" id="transformLabel">Item Card</div>
+          </div>
+
+          <!-- Illustrator Artboard Tool Overlay (8 resize handles + size badge) -->
+          <div class="artboard-overlay" id="artboardOverlay" style="display: none;">
+            <div class="artboard-handle nw" data-handle="nw"></div>
+            <div class="artboard-handle n" data-handle="n"></div>
+            <div class="artboard-handle ne" data-handle="ne"></div>
+            <div class="artboard-handle e" data-handle="e"></div>
+            <div class="artboard-handle se" data-handle="se"></div>
+            <div class="artboard-handle s" data-handle="s"></div>
+            <div class="artboard-handle sw" data-handle="sw"></div>
+            <div class="artboard-handle w" data-handle="w"></div>
+            <div class="artboard-size-badge" id="artboardSizeBadge">A4 &bull; 794 &times; 1123 px</div>
+          </div>
+
+          <!-- Margin Safety Zone Overlay Guide -->
+          <div class="print-guide-overlay" id="printGuides"></div>
+
+          <!-- Render Container (Loads the live pages) -->
+          <div class="artboards-container" id="artboardsContainer">
+            <div class="loading-state">
+              <div class="spinner"></div>
+              <span>Loading Menu Template into Canvas Studio...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT PROPERTIES & INSPECTOR PANEL -->
+    <aside class="inspector-panel" id="inspectorPanel">
+      
+      <!-- Panel Header -->
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <span class="panel-title">PROPERTIES</span>
+          <span class="selection-type-badge" id="selectionTypeBadge">No Selection</span>
+        </div>
+        <button id="btnCloseInspector" class="btn-panel-close" title="Collapse Panel (I)">&times;</button>
+      </div>
+
+      <!-- Artboard Options (Illustrator Style) -->
+      <div class="inspector-section" id="secArtboardOptions">
+        <div class="section-header-flex">
+          <h4 class="section-title">ARTBOARD FORMAT</h4>
+          <span class="active-board-tag" id="activeBoardTag">BOARD 01</span>
+        </div>
+
+        <div class="prop-field">
+          <label for="selArtboardPreset">Size Preset</label>
+          <select id="selArtboardPreset" class="prop-select">
+            <option value="a4-portrait" selected>A4 Portrait (794 × 1123 px)</option>
+            <option value="a4-landscape">A4 Landscape (1123 × 794 px)</option>
+            <option value="a5-portrait">A5 Portrait (559 × 794 px)</option>
+            <option value="a3-portrait">A3 Poster (1123 × 1587 px)</option>
+            <option value="us-letter">US Letter (816 × 1056 px)</option>
+            <option value="us-letter-landscape">US Letter Landscape (1056 × 816 px)</option>
+            <option value="digital-tv">Digital Menu Board 16:9 (1920 × 1080 px)</option>
+            <option value="square-post">Square Menu (1080 × 1080 px)</option>
+            <option value="custom">Custom Dimensions...</option>
+          </select>
+        </div>
+
+        <div class="artboard-dim-row">
+          <div class="prop-field half">
+            <label for="inpArtboardW">Width</label>
+            <div class="input-unit-wrap">
+              <input type="number" id="inpArtboardW" value="794" min="300" max="3840">
+              <span class="unit-label">px</span>
+            </div>
+          </div>
+
+          <button class="orientation-btn" id="btnSwapOrientation" title="Swap Orientation (Portrait / Landscape)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4"/></svg>
+          </button>
+
+          <div class="prop-field half">
+            <label for="inpArtboardH">Height</label>
+            <div class="input-unit-wrap">
+              <input type="number" id="inpArtboardH" value="1123" min="300" max="3840">
+              <span class="unit-label">px</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="artboard-actions-row">
+          <button id="btnNewArtboard" class="btn-micro" title="Add New Artboard">+ New Board</button>
+          <button id="btnDuplicateArtboard" class="btn-micro" title="Duplicate Active Artboard">Duplicate</button>
+          <button id="btnDeleteArtboard" class="btn-micro btn-danger" title="Delete Active Artboard">Delete</button>
+        </div>
+      </div>
+
+      <!-- Quick Action Toolbar -->
+      <div class="inspector-section" id="secQuickActions">
+        <div class="card-reorder-group">
+          <button id="btnMoveUp" class="btn-micro" title="Move Card Up" disabled>&uarr; Up</button>
+          <button id="btnMoveDown" class="btn-micro" title="Move Card Down" disabled>&darr; Down</button>
+          <button id="btnDuplicateCard" class="btn-micro" title="Duplicate Card" disabled>Duplicate</button>
+          <button id="btnDeleteCard" class="btn-micro btn-danger" title="Delete Card" disabled>Delete</button>
+        </div>
+      </div>
+
+      <!-- Item Content Editor -->
+      <div class="inspector-section" id="secItemContent">
+        <h4 class="section-title">CARD CONTENT</h4>
+        
+        <div class="prop-field">
+          <label for="inpItemTitle">Item Title</label>
+          <input type="text" id="inpItemTitle" placeholder="Select an item title...">
+        </div>
+
+        <div class="prop-field">
+          <label for="inpItemDesc">Ingredients & Description</label>
+          <textarea id="inpItemDesc" rows="3" placeholder="Select an item description..."></textarea>
+        </div>
+
+        <div class="prop-row">
+          <div class="prop-field flex-1">
+            <label for="selItemBadge">Badge / Stamp</label>
+            <select id="selItemBadge">
+              <option value="none">None</option>
+              <option value="bestseller">BESTSELLER</option>
+              <option value="high-heat">HIGH HEAT 🌶️</option>
+              <option value="chef-pick">CHEF PICK ⭐</option>
+              <option value="crowd-fav">CROWD FAV ⭐</option>
+              <option value="veg-delight">VEG DELIGHT</option>
+              <option value="heavyweight">HEAVYWEIGHT</option>
+              <option value="all-in-one">ALL-IN-ONE</option>
+              <option value="fast-combo">FAST COMBO ⚡</option>
+            </select>
+          </div>
+
+          <div class="prop-field flex-1">
+            <label for="chkHeroCard">Hero Card</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="chkHeroCard">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing & Strikethrough Engine -->
+      <div class="inspector-section" id="secPricing">
+        <h4 class="section-title">PRICING & STRIKETHROUGH</h4>
+        
+        <div class="prop-row">
+          <div class="prop-field flex-1">
+            <label for="inpPrice">Price ($)</label>
+            <input type="text" id="inpPrice" placeholder="$11.90">
+          </div>
+
+          <div class="prop-field flex-1">
+            <label for="inpOldPrice">Old Price ($)</label>
+            <input type="text" id="inpOldPrice" placeholder="$14.50">
+          </div>
+        </div>
+
+        <div class="prop-row">
+          <div class="prop-field flex-1">
+            <label for="chkStrikeThrough">Red Strike</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="chkStrikeThrough" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="prop-field flex-1">
+            <label for="inpPillBg">Pill Color</label>
+            <div class="color-picker-wrap">
+              <input type="color" id="inpPillBg" value="#FFE600">
+              <span class="color-hex" id="pillBgHex">#FFE600</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outlined Typography & Tokens -->
+      <div class="inspector-section" id="secTypography">
+        <h4 class="section-title">TYPOGRAPHY & STROKE</h4>
+
+        <div class="prop-field">
+          <label for="selFontFamily">Font Token</label>
+          <select id="selFontFamily">
+            <option value="'Momo Trust', 'Bebas Neue', sans-serif">Momo Trust / Bebas Neue</option>
+            <option value="'Inter', sans-serif">Inter (Clean Body)</option>
+            <option value="'Plus Jakarta Sans', sans-serif">Plus Jakarta Sans</option>
+          </select>
+        </div>
+
+        <div class="prop-row">
+          <div class="prop-field flex-1">
+            <label for="rngFontSize">Size (<span id="fontSizeVal">22px</span>)</label>
+            <input type="range" id="rngFontSize" min="10" max="64" value="22">
+          </div>
+
+          <div class="prop-field flex-1">
+            <label for="rngStrokeWidth">Outline (<span id="strokeVal">2px</span>)</label>
+            <input type="range" id="rngStrokeWidth" min="0" max="5" step="0.5" value="2">
+          </div>
+        </div>
+
+        <div class="prop-row">
+          <div class="prop-field flex-1">
+            <label for="inpStrokeColor">Stroke Color</label>
+            <div class="color-picker-wrap">
+              <input type="color" id="inpStrokeColor" value="#FFE600">
+              <span class="color-hex" id="strokeColorHex">#FFE600</span>
+            </div>
+          </div>
+
+          <div class="prop-field flex-1">
+            <label for="inpTextColor">Text Color</label>
+            <div class="color-picker-wrap">
+              <input type="color" id="inpTextColor" value="#FFFFFF">
+              <span class="color-hex" id="textColorHex">#FFFFFF</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Playwright Compilation Status Panel -->
+      <div class="inspector-section" id="secCompilerStatus">
+        <h4 class="section-title">PRINT COMPILER & AUDIT</h4>
+        <div class="audit-summary-box" id="auditSummaryBox">
+          <div class="audit-row">
+            <span>Dimensions:</span>
+            <strong>794 &times; 1123 px (A4)</strong>
+          </div>
+          <div class="audit-row">
+            <span>Zero-Overflow:</span>
+            <span class="badge-audit-pass" id="auditBadge">VERIFIED PASS</span>
+          </div>
+          <div class="audit-row">
+            <span>Production PDF:</span>
+            <a href="/output/crave-lab-menu-a4-production.pdf" target="_blank" id="pdfLink">Download (827 KB)</a>
+          </div>
+        </div>
+        <button id="btnQuickAudit" class="btn btn-block btn-secondary">
+          Run Headless Verification Audit
+        </button>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- SCRIPT -->
+  <script src="editor.js"></script>
+</body>
+</html>
