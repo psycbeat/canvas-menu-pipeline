@@ -26,7 +26,15 @@
     artboardPreset: 'a4-portrait',
     isResizingArtboard: false,
     artboardResizeHandle: null,
-    artboardResizeStart: { mouseX: 0, mouseY: 0, w: 794, h: 1123 }
+    artboardResizeStart: { mouseX: 0, mouseY: 0, w: 794, h: 1123 },
+    theme: 'botanical-forest',
+    exportFormat: 'pdf',
+    exportScope: 'current',
+    exportScale: 2,
+    exportQuality: 92,
+    exportCropMarks: false,
+    exportTransparent: false,
+    footerQrUrl: 'https://cravelab.menu'
   };
 
   const ARTBOARD_PRESETS = {
@@ -109,7 +117,34 @@
     btnDuplicateCard: document.getElementById('btnDuplicateCard'),
     btnDeleteCard: document.getElementById('btnDeleteCard'),
     auditBadge: document.getElementById('auditBadge'),
-    pdfLink: document.getElementById('pdfLink')
+    pdfLink: document.getElementById('pdfLink'),
+
+    // Export Studio Modal References
+    btnOpenExportModal: document.getElementById('btnOpenExportModal'),
+    exportModalBackdrop: document.getElementById('exportModalBackdrop'),
+    exportModal: document.getElementById('exportModal'),
+    btnCloseExportModal: document.getElementById('btnCloseExportModal'),
+    btnCancelExport: document.getElementById('btnCancelExport'),
+    btnExecuteExport: document.getElementById('btnExecuteExport'),
+    btnExecuteExportText: document.getElementById('btnExecuteExportText'),
+    exportSpinner: document.getElementById('exportSpinner'),
+    formatCards: document.getElementById('formatCards'),
+    segExportScope: document.getElementById('segExportScope'),
+    segExportScale: document.getElementById('segExportScale'),
+    optDpiScale: document.getElementById('optDpiScale'),
+    chkCropMarks: document.getElementById('chkCropMarks'),
+    chkCropMarksRow: document.getElementById('chkCropMarksRow'),
+    chkTransparent: document.getElementById('chkTransparent'),
+    chkTransparentRow: document.getElementById('chkTransparentRow'),
+    exportActiveBoardNum: document.getElementById('exportActiveBoardNum'),
+    inpImportJson: document.getElementById('inpImportJson'),
+    btnTriggerImportJson: document.getElementById('btnTriggerImportJson'),
+
+    // Grid Columns & Brand Themes & Vector QR
+    segGridCols: document.getElementById('segGridCols'),
+    themeSwatches: document.getElementById('themeSwatches'),
+    inpFooterQrUrl: document.getElementById('inpFooterQrUrl'),
+    btnUpdateQr: document.getElementById('btnUpdateQr')
   };
 
   // ============================================================
@@ -121,6 +156,10 @@
     setupZoomAndPan();
     setupInspectorEvents();
     setupArtboardTool();
+    setupBrandThemeEngine();
+    setupGridColumnSwitcher();
+    setupQrCodeGenerator();
+    setupExportModal();
     setupShortcuts();
     setupLiveSync();
 
@@ -1295,26 +1334,42 @@
     label.textContent = `ARTBOARD 0${newIdx} // NEW BOARD`;
     wrapper.appendChild(label);
 
-    // Create new page
+    // Create new page matching exact src/menu.html structure
     const newPage = document.createElement('section');
     newPage.className = 'page';
     newPage.id = newId;
+    if (state.theme) newPage.dataset.theme = state.theme;
     newPage.style.width = `${state.artboardWidth}px`;
     newPage.style.height = `${state.artboardHeight}px`;
     newPage.innerHTML = `
-      <header class="category-header">
-        <div class="category-title-group">
-          <span class="est-tag">NEW SECTION &bull; CHEF SPECIALS</span>
-          <h1 class="outlined-title">NEW <em>Board</em></h1>
-          <p class="category-sub">SEASONAL DISHES &bull; LIMITED EDITIONS</p>
+      <header class="header-bar">
+        <div class="brand-group">
+          <img src="../assets/brand-logo.svg" alt="CRAVE LAB" class="brand-logo-img">
         </div>
-        <div class="page-num-pill">0${newIdx} // 0${newIdx}</div>
+        <div class="page-index-pill">0${newIdx} // 0${newIdx}</div>
       </header>
-      <div class="items-grid"></div>
-      <footer class="page-footer">
-        <div class="footer-left"><span>CRAVELAB MENU // ORDER DIRECT</span></div>
-        <div class="footer-center"><img src="../assets/brand-logo.svg" alt="logo" style="height: 18px;"></div>
-        <div class="footer-right"><img src="../assets/qr-code.svg" alt="qr" style="height: 28px;"></div>
+
+      <div class="category-banner">
+        <div class="category-title-group">
+          <h1 class="outlined-title">CHEF <span class="solid-accent">Specials</span></h1>
+          <p class="category-subtitle">SEASONAL FLAVORS &bull; FRESH CRAFT</p>
+        </div>
+        <div class="category-badge-chip">LIMITED EDITION</div>
+      </div>
+
+      <div class="items-grid items-grid-3x2"></div>
+
+      <footer class="menu-footer">
+        <div class="footer-left">
+          <span class="order-url">CRAVELAB.MENU // ORDER DIRECT</span>
+          <span class="allergen-text">Crafted fresh daily &bull; Please inform us of any allergies</span>
+        </div>
+        <div class="footer-right">
+          <div class="qr-badge">
+            <img src="../assets/qr-code.svg" alt="QR">
+            <div class="qr-label">SCAN TO<span>ORDER</span></div>
+          </div>
+        </div>
       </footer>
     `;
 
@@ -1487,6 +1542,10 @@
       styleTag.textContent = css;
     }
 
+    if (state.theme) {
+      doc.body.dataset.theme = state.theme;
+    }
+
     return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
   }
 
@@ -1554,6 +1613,357 @@
   }
 
   // ============================================================
+  // BRAND THEME ENGINE (5 PRINT-CALIBRATED PALETTES)
+  // ============================================================
+  function setupBrandThemeEngine() {
+    if (!dom.themeSwatches) return;
+
+    dom.themeSwatches.addEventListener('click', (e) => {
+      const chip = e.target.closest('.theme-swatch-chip');
+      if (!chip) return;
+      const themeKey = chip.dataset.theme;
+      applyBrandTheme(themeKey);
+    });
+  }
+
+  function applyBrandTheme(themeKey) {
+    state.theme = themeKey;
+    const pages = dom.artboardsContainer.querySelectorAll('.page');
+    pages.forEach(page => {
+      page.dataset.theme = themeKey;
+    });
+
+    if (dom.themeSwatches) {
+      dom.themeSwatches.querySelectorAll('.theme-swatch-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.theme === themeKey);
+      });
+    }
+
+    pushHistory(`Apply Theme: ${themeKey}`);
+    showToast(`Brand Theme: ${themeKey.replace('-', ' ').toUpperCase()}`, 'info');
+  }
+
+  // ============================================================
+  // ADAPTIVE GRID COLUMN SWITCHER (1 / 2 / 3 COLUMNS)
+  // ============================================================
+  function setupGridColumnSwitcher() {
+    if (!dom.segGridCols) return;
+
+    dom.segGridCols.addEventListener('click', (e) => {
+      const btn = e.target.closest('.seg-btn');
+      if (!btn) return;
+      const cols = parseInt(btn.dataset.cols, 10) || 2;
+      setBoardColumnsForActive(cols);
+    });
+  }
+
+  function setBoardColumnsForActive(cols) {
+    const activeWrapper = dom.artboardsContainer.querySelector(`.page-artboard-wrapper[data-board-id="${state.currentBoard}"]`);
+    if (!activeWrapper) return;
+    const page = activeWrapper.querySelector('.page');
+    if (!page) return;
+
+    setBoardColumns(page, cols);
+    updateGridColsUi(cols);
+    pushHistory(`Set Grid to ${cols} Columns`);
+    showToast(`Artboard Grid: ${cols} Column${cols > 1 ? 's' : ''}`, 'info');
+  }
+
+  function setBoardColumns(pageEl, cols) {
+    const grid = pageEl.querySelector('.items-grid');
+    if (!grid) return;
+    grid.classList.remove('cols-1', 'cols-2', 'cols-3');
+    grid.classList.add(`cols-${cols}`);
+  }
+
+  function updateGridColsUi(cols) {
+    if (dom.segGridCols) {
+      dom.segGridCols.querySelectorAll('.seg-btn').forEach(b => {
+        b.classList.toggle('active', parseInt(b.dataset.cols, 10) === cols);
+      });
+    }
+  }
+
+  // ============================================================
+  // LIVE SCANNABLE VECTOR QR CODE GENERATOR
+  // ============================================================
+  function setupQrCodeGenerator() {
+    function updateAllQrBadges(url) {
+      if (!url) return;
+      state.footerQrUrl = url;
+      const qrDataUri = window.CRAVE_QR && typeof window.CRAVE_QR.generateQrDataUri === 'function'
+        ? window.CRAVE_QR.generateQrDataUri(url, { size: 104, fgColor: '#141414', bgColor: '#FFFFFF' })
+        : null;
+
+      if (!qrDataUri) return;
+
+      const qrImages = dom.artboardsContainer.querySelectorAll('.qr-badge img');
+      qrImages.forEach(img => {
+        img.src = qrDataUri;
+      });
+
+      pushHistory('Update Footer QR Code');
+      showToast(`Generated live vector QR for: ${url}`, 'success');
+    }
+
+    if (dom.btnUpdateQr && dom.inpFooterQrUrl) {
+      dom.btnUpdateQr.addEventListener('click', () => {
+        updateAllQrBadges(dom.inpFooterQrUrl.value.trim());
+      });
+      dom.inpFooterQrUrl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          updateAllQrBadges(dom.inpFooterQrUrl.value.trim());
+        }
+      });
+    }
+  }
+
+  // ============================================================
+  // UNIVERSAL EXPORT STUDIO MODAL (8 FORMATS + PRE-PRESS)
+  // ============================================================
+  function setupExportModal() {
+    if (!dom.btnOpenExportModal) return;
+
+    function openExportModal() {
+      if (dom.exportModalBackdrop) {
+        dom.exportModalBackdrop.style.display = 'flex';
+        if (dom.exportActiveBoardNum) {
+          const num = state.currentBoard ? state.currentBoard.replace('page-', '') : '01';
+          dom.exportActiveBoardNum.textContent = num.padStart(2, '0');
+        }
+        updateExportOptionsUI();
+      }
+    }
+
+    function closeExportModal() {
+      if (dom.exportModalBackdrop) {
+        dom.exportModalBackdrop.style.display = 'none';
+      }
+    }
+
+    function updateExportOptionsUI() {
+      const fmt = state.exportFormat;
+      const isRaster = ['png', 'jpg', 'jpeg', 'webp'].includes(fmt);
+      const isVectorPrint = ['pdf', 'eps', 'svg'].includes(fmt);
+      const isAlpha = ['png', 'webp', 'svg'].includes(fmt);
+
+      if (dom.optDpiScale) {
+        dom.optDpiScale.style.display = isRaster ? 'flex' : 'none';
+      }
+      if (dom.chkCropMarksRow) {
+        dom.chkCropMarksRow.style.display = isVectorPrint ? 'flex' : 'none';
+      }
+      if (dom.chkTransparentRow) {
+        dom.chkTransparentRow.style.display = isAlpha ? 'flex' : 'none';
+      }
+
+      const labels = {
+        pdf: 'Download Vector PDF',
+        png: `Download PNG (${state.exportScale}x / ${state.exportScale * 96} DPI)`,
+        jpg: `Download JPEG (${state.exportQuality}%)`,
+        webp: `Download WebP (${state.exportQuality}%)`,
+        svg: 'Download Scalable SVG',
+        eps: 'Download PostScript EPS',
+        html: 'Download Standalone HTML',
+        json: 'Download Menu Data JSON'
+      };
+      if (dom.btnExecuteExportText) {
+        dom.btnExecuteExportText.textContent = labels[fmt] || `Download ${fmt.toUpperCase()}`;
+      }
+    }
+
+    // Format card selection
+    if (dom.formatCards) {
+      dom.formatCards.addEventListener('click', (e) => {
+        const card = e.target.closest('.format-card');
+        if (!card) return;
+        dom.formatCards.querySelectorAll('.format-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        state.exportFormat = card.dataset.format || 'pdf';
+        updateExportOptionsUI();
+      });
+    }
+
+    // Scope control
+    if (dom.segExportScope) {
+      dom.segExportScope.addEventListener('click', (e) => {
+        const btn = e.target.closest('.seg-btn');
+        if (!btn) return;
+        dom.segExportScope.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.exportScope = btn.dataset.scope || 'current';
+      });
+    }
+
+    // Scale control
+    if (dom.segExportScale) {
+      dom.segExportScale.addEventListener('click', (e) => {
+        const btn = e.target.closest('.seg-btn');
+        if (!btn) return;
+        dom.segExportScale.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.exportScale = parseInt(btn.dataset.scale, 10) || 2;
+        updateExportOptionsUI();
+      });
+    }
+
+    // Toggles
+    if (dom.chkCropMarks) {
+      dom.chkCropMarks.addEventListener('change', () => {
+        state.exportCropMarks = dom.chkCropMarks.checked;
+      });
+    }
+    if (dom.chkTransparent) {
+      dom.chkTransparent.addEventListener('change', () => {
+        state.exportTransparent = dom.chkTransparent.checked;
+      });
+    }
+
+    // Modal buttons
+    dom.btnOpenExportModal.addEventListener('click', openExportModal);
+    if (dom.btnCloseExportModal) dom.btnCloseExportModal.addEventListener('click', closeExportModal);
+    if (dom.btnCancelExport) dom.btnCancelExport.addEventListener('click', closeExportModal);
+    if (dom.exportModalBackdrop) {
+      dom.exportModalBackdrop.addEventListener('click', (e) => {
+        if (e.target === dom.exportModalBackdrop) closeExportModal();
+      });
+    }
+
+    // Execute Export Action
+    if (dom.btnExecuteExport) {
+      dom.btnExecuteExport.addEventListener('click', async () => {
+        try {
+          if (dom.exportSpinner) dom.exportSpinner.style.display = 'inline-block';
+          dom.btnExecuteExport.disabled = true;
+          setStatus('EXPORTING...', 'busy');
+
+          const serializedHtml = serializeCurrentHtml();
+          const payload = {
+            html: serializedHtml,
+            format: state.exportFormat,
+            scope: state.exportScope,
+            boardId: state.currentBoard || 'page-1',
+            scale: state.exportScale,
+            quality: state.exportQuality,
+            cropMarks: state.exportCropMarks,
+            transparent: state.exportTransparent
+          };
+
+          const res = await fetch('/api/export', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!res.ok) {
+            const errJson = await res.json().catch(() => ({ error: 'Export failed' }));
+            throw new Error(errJson.error || `HTTP ${res.status}`);
+          }
+
+          const blob = await res.blob();
+          const dispHeader = res.headers.get('Content-Disposition') || '';
+          const matchFilename = dispHeader.match(/filename="?([^";]+)"?/);
+          const filename = matchFilename ? matchFilename[1] : `crave-lab-menu.${state.exportFormat}`;
+
+          // Trigger browser download
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+
+          setStatus('READY', 'ready');
+          showToast(`Exported ${filename} (${Math.round(blob.size / 1024)} KB)`, 'success');
+          closeExportModal();
+        } catch (err) {
+          setStatus('ERROR', 'busy');
+          showToast('Export Error: ' + err.message, 'error');
+          console.error(err);
+        } finally {
+          if (dom.exportSpinner) dom.exportSpinner.style.display = 'none';
+          dom.btnExecuteExport.disabled = false;
+        }
+      });
+    }
+
+    // JSON Import Trigger
+    if (dom.btnTriggerImportJson && dom.inpImportJson) {
+      dom.btnTriggerImportJson.addEventListener('click', () => {
+        dom.inpImportJson.click();
+      });
+
+      dom.inpImportJson.addEventListener('change', async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        try {
+          const text = await file.text();
+          const jsonData = JSON.parse(text);
+          importMenuFromJson(jsonData);
+          closeExportModal();
+          showToast(`Imported menu from ${file.name}`, 'success');
+        } catch (err) {
+          showToast('Failed to import JSON: ' + err.message, 'error');
+        }
+      });
+    }
+  }
+
+  function importMenuFromJson(data) {
+    if (!data || !data.boards || !Array.isArray(data.boards)) {
+      throw new Error('Invalid JSON: missing boards array');
+    }
+
+    if (data.theme) {
+      applyBrandTheme(data.theme);
+    }
+
+    data.boards.forEach(b => {
+      const wrapper = dom.artboardsContainer.querySelector(`.page-artboard-wrapper[data-board-id="${b.id}"]`);
+      if (!wrapper) return;
+      const page = wrapper.querySelector('.page');
+      if (!page) return;
+
+      if (b.categoryTitle) {
+        const h1 = page.querySelector('.outlined-title');
+        if (h1) h1.innerHTML = b.categoryTitle;
+      }
+      if (b.categorySubtitle) {
+        const sub = page.querySelector('.category-subtitle');
+        if (sub) sub.textContent = b.categorySubtitle;
+      }
+      if (b.columns) {
+        setBoardColumns(page, b.columns);
+      }
+
+      if (b.items && Array.isArray(b.items)) {
+        const grid = page.querySelector('.items-grid');
+        if (grid) {
+          const cards = grid.querySelectorAll('.menu-card');
+          b.items.forEach((itemData, idx) => {
+            if (cards[idx]) {
+              const card = cards[idx];
+              const titleEl = card.querySelector('.item-title');
+              if (titleEl && itemData.title) titleEl.textContent = itemData.title;
+              const descEl = card.querySelector('.item-desc');
+              if (descEl && itemData.desc) descEl.textContent = itemData.desc;
+              const priceEl = card.querySelector('.price-pill');
+              if (priceEl && itemData.price) priceEl.textContent = itemData.price;
+              const oldPriceEl = card.querySelector('.old-price');
+              if (oldPriceEl && itemData.oldPrice) oldPriceEl.textContent = itemData.oldPrice;
+            }
+          });
+        }
+      }
+    });
+
+    pushHistory('Import Menu from JSON');
+  }
+
+  // ============================================================
   // SHORTCUTS & HELPERS
   // ============================================================
   function setupShortcuts() {
@@ -1566,6 +1976,9 @@
       if ((e.ctrlKey || e.metaKey) && key === 's') {
         e.preventDefault();
         saveHtmlDocument();
+      } else if ((e.ctrlKey || e.metaKey) && key === 'e') {
+        e.preventDefault();
+        if (dom.btnOpenExportModal) dom.btnOpenExportModal.click();
       } else if ((e.ctrlKey || e.metaKey) && key === 'z') {
         e.preventDefault();
         dom.btnUndo.click();
@@ -1585,8 +1998,12 @@
         setTool('artboard');
       }
       else if (e.key === 'Escape') {
-        closeInspectorDrawer();
-        clearSelection();
+        if (dom.exportModalBackdrop && dom.exportModalBackdrop.style.display !== 'none') {
+          dom.exportModalBackdrop.style.display = 'none';
+        } else {
+          closeInspectorDrawer();
+          clearSelection();
+        }
       }
       else if (e.key === 'Delete' || e.key === 'Backspace') {
         if (state.selectedCard) deleteSelectedCard();

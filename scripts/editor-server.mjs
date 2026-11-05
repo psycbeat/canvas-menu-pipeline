@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
+import { exportDocument, closeWarmBrowser } from './export-engine.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,8 +23,10 @@ const MIME_TYPES = {
   '.json': 'application/json; charset=utf-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
+  '.webp': 'image/webp',
   '.svg': 'image/svg+xml',
-  '.pdf': 'application/pdf'
+  '.pdf': 'application/pdf',
+  '.eps': 'application/postscript'
 };
 
 // SSE Client list
@@ -211,6 +214,47 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    // API: POST /api/export -> Multi-Format Universal Export Engine
+    if (pathname === '/api/export' && req.method === 'POST') {
+      try {
+        const body = await parseJsonBody(req);
+        const {
+          html,
+          format = 'pdf',
+          scope = 'current',
+          boardId = 'page-1',
+          scale = 2,
+          quality = 92,
+          cropMarks = false,
+          transparent = false
+        } = body;
+
+        console.log(`[EXPORT] Processing format=${format}, scope=${scope}, board=${boardId}, cropMarks=${cropMarks}...`);
+        const result = await exportDocument({
+          html: html || fs.readFileSync(HTML_FILE, 'utf8'),
+          format,
+          scope,
+          boardId,
+          scale,
+          quality,
+          cropMarks,
+          transparent
+        });
+
+        res.writeHead(200, {
+          'Content-Type': result.contentType,
+          'Content-Disposition': `attachment; filename="${result.filename}"`,
+          'Content-Length': result.buffer.length
+        });
+        res.end(result.buffer);
+      } catch (err) {
+        console.error('[EXPORT ERROR]', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+      return;
+    }
+
     // Static route: /output/*
     if (pathname.startsWith('/output/')) {
       const relPath = pathname.replace('/output/', '');
@@ -278,6 +322,17 @@ server.on('error', (err) => {
   } else {
     console.error('Server error:', err);
   }
+});
+
+process.on('SIGINT', async () => {
+  console.log('\n[SERVER] Shutting down cleanly...');
+  await closeWarmBrowser();
+  process.exit(0);
+});
+
+process.on('SIGTERM', async () => {
+  await closeWarmBrowser();
+  process.exit(0);
 });
 
 startServer(currentPort);

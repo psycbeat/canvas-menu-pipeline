@@ -1,0 +1,308 @@
+{
+  "generator": "CRAVE LAB // Illustrator Canvas Studio",
+  "version": "2.0.0",
+  "exportedAt": "2026-11-05T13:49:05.724Z",
+  "theme": "midnight-gold",
+  "dimensions": {
+    "width": 794,
+    "height": 1123
+  },
+  "artboardCount": 5,
+  "boards": [
+    {
+      "id": "page-1",
+      "index": 1,
+      "categoryTitle": "GOURMET Rolls",
+      "categorySubtitle": "Crispy Flaky Parathas • Fire-Smoked Fillings • House Slaw",
+      "categoryBadge": "HAND-ROLLED FRESH",
+      "columns": 2,
+      "itemCount": 6,
+      "items": [
+        {
+          "title": "Menu Item",
+          "desc": "Crispy fried chicken tenders tossed in ghost chili oil, tangy dill pickles, hot honey drizzle & cheddar melt wrapped in buttered flaky paratha.",
+          "price": "",
+          "oldPrice": "$14.50",
+          "isHero": true,
+          "badge": "BESTSELLER"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Charcoal-tandoori chicken morsels simmered in velvety makhani glaze, red pickled shallots, fresh coriander cream & crispy sev crunch.",
+          "price": "",
+          "oldPrice": "$13.90",
+          "isHero": false,
+          "badge": "CROWD FAV"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Shredded oak-smoked beef brisket, bourbon molasses BBQ sauce, crispy tobacco onions, charred jalapenos & smoked gouda cheese.",
+          "price": "",
+          "oldPrice": "$16.00",
+          "isHero": false,
+          "badge": "14-HR SMOKE"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Grilled cottage cheese cubes in spiced yoghurt marinade, roasted bell peppers, fresh mint chutney relish & pomegranate crunch.",
+          "price": "",
+          "oldPrice": "$12.50",
+          "isHero": false,
+          "badge": "VEG DELIGHT"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Sliced herb-roasted chicken breast, sautéed wild mushrooms, black truffle aioli, baby rocket leaves & melted parmesan crisps.",
+          "price": "",
+          "oldPrice": "$15.50",
+          "isHero": false,
+          "badge": "LUXURY LINE"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Double flame-grilled lamb seekh skewers, cumin-spiced yoghurt drizzle, crispy spiced potatoes & shredded green chili slaw.",
+          "price": "",
+          "oldPrice": "$15.00",
+          "isHero": false,
+          "badge": "SPICY"
+        }
+      ]
+    },
+    {
+      "id": "page-2",
+      "index": 2,
+      "categoryTitle": "SMASH Burgers",
+      "categorySubtitle": "Crispy Lacy Edges • 100% Angus Chuck • Griddled Brioche",
+      "categoryBadge": "CAST IRON SEARED",
+      "columns": 2,
+      "itemCount": 6,
+      "items": [
+        {
+          "title": "Menu Item",
+          "desc": "Two 3oz smash patties with ultra-crispy edges, double American cheese, dill pickles, grilled sweet onions & secret yellow Crave sauce.",
+          "price": "",
+          "oldPrice": "$15.50",
+          "isHero": true,
+          "badge": "BESTSELLER"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Paper-thin sweet Vidalia onions pressed deep into sizzling beef patties, double melted cheddar, mustard relish & toasted potato bun.",
+          "price": "",
+          "oldPrice": "$14.90",
+          "isHero": false,
+          "badge": "TRADITIONAL"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Three crispy smash patties, hardwood smoked bacon strips, warm maple-bacon onion jam, smoked provolone & garlic butter drip.",
+          "price": "",
+          "oldPrice": "$18.90",
+          "isHero": false,
+          "badge": "HEAVYWEIGHT"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Double Angus beef, butter-roasted cremini mushrooms, aged Swiss Gruyere, black winter truffle aioli & crispy shallot straw.",
+          "price": "",
+          "oldPrice": "$16.50",
+          "isHero": false,
+          "badge": "GOURMET"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Double smash beef crusted in habanero salt, pepper jack cheese, pickled jalapeño coins, roasted serrano paste & fire mayo.",
+          "price": "",
+          "oldPrice": "$15.90",
+          "isHero": false,
+          "badge": "HIGH HEAT"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Double beef smash, golden beer-battered onion ring, sharp Wisconsin cheddar, smokey hickory BBQ sauce & garlic herb spread.",
+          "price": "",
+          "oldPrice": "$16.00",
+          "isHero": false,
+          "badge": "SUPER CRUNCH"
+        }
+      ]
+    },
+    {
+      "id": "page-3",
+      "index": 3,
+      "categoryTitle": "GOURMET Burgers",
+      "categorySubtitle": "Handcrafted Thick Cuts • Southern Fried Bird • Plant Masterpieces",
+      "categoryBadge": "CHEF STACKED",
+      "columns": 2,
+      "itemCount": 6,
+      "items": [
+        {
+          "title": "Menu Item",
+          "desc": "24-hour buttermilk soaked chicken thigh double-dredged for maximum crunch, Nashville spice dusting, sweet honey butter, house pickles & creamy slaw.",
+          "price": "",
+          "oldPrice": "$16.50",
+          "isHero": true,
+          "badge": "BESTSELLER"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "7oz prime beef patty, thick cut smoked pork belly or beef bacon, melted double gouda, beer mustard, tomato relish & crisp iceberg.",
+          "price": "",
+          "oldPrice": "$18.00",
+          "isHero": false,
+          "badge": "THICK 7OZ"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Crispy fried chicken breast drenched in sticky garlic gochujang glaze, house fermented kimchi slaw, toasted sesame seeds & kewpie mayo.",
+          "price": "",
+          "oldPrice": "$16.20",
+          "isHero": false,
+          "badge": "SWEET & HEAT"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Pure Wagyu beef patty, black garlic glaze, melted taleggio cheese, truffle-infused caramelized onions & baby spinach on toasted milk bun.",
+          "price": "",
+          "oldPrice": "$21.00",
+          "isHero": false,
+          "badge": "MBS 7+ WAGYU"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Thick griddled Cypriot halloumi slab, avocado mash, roasted red peppers, balsamic onion jam & garlic herb labneh on brioche.",
+          "price": "",
+          "oldPrice": "$15.50",
+          "isHero": false,
+          "badge": "VEGETARIAN"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Prime beef patty, smoked Monterey Jack cheese, crispy onion frizzles, Texas mesquite BBQ sauce & cool house herb buttermilk ranch.",
+          "price": "",
+          "oldPrice": "$16.00",
+          "isHero": false,
+          "badge": "CLASSIC"
+        }
+      ]
+    },
+    {
+      "id": "page-4",
+      "index": 4,
+      "categoryTitle": "LOADED Boxes",
+      "categorySubtitle": "Heavyweight Combos • Seasoned Waffle Fries • Signature Sauces",
+      "categoryBadge": "FULL MEAL DROPS",
+      "columns": 2,
+      "itemCount": 6,
+      "items": [
+        {
+          "title": "Menu Item",
+          "desc": "Includes The OG Double Smash Burger, large golden seasoned skin-on fries, 3 mozzarella bites, house Crave dipping sauce & cold craft soda.",
+          "price": "",
+          "oldPrice": "$22.50",
+          "isHero": true,
+          "badge": "BEST VALUE"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "4 colossal buttermilk fried chicken tenders dusted in fiery Nashville spice, grilled Texas toast, pickle spears, waffle fries & 2 dipping sauces.",
+          "price": "",
+          "oldPrice": "$21.00",
+          "isHero": false,
+          "badge": "JUMBO 4PC"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Pick any 2 gourmet paratha rolls, accompanied by spiced masala fries, minted cucumber yoghurt dip, pickled shallots & 2 fountain sodas.",
+          "price": "",
+          "oldPrice": "$29.00",
+          "isHero": false,
+          "badge": "ROLL LOVERS"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Crispy popcorn chicken, 4 mac & cheese bites, loaded chili cheese fries, onion rings, truffle aioli & garlic herb mayo tubs.",
+          "price": "",
+          "oldPrice": "$23.50",
+          "isHero": false,
+          "badge": "SNACK HEAVEN"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "2 Double Smash Burgers, 2 Crispy Buttermilk Birds, 2 giant loaded fries, 12 crispy tenders, 4 dipping sauces & 4 canned drinks.",
+          "price": "",
+          "oldPrice": "$68.00",
+          "isHero": false,
+          "badge": "MEGAPACK"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "6 crispy halloumi fries with honey chili drizzle, sweet potato fries, falafel bites, tzatziki dip & toasted zaatar flatbread.",
+          "price": "",
+          "oldPrice": "$20.00",
+          "isHero": false,
+          "badge": "VEGETARIAN"
+        }
+      ]
+    },
+    {
+      "id": "page-5",
+      "index": 5,
+      "categoryTitle": "SPECIAL Deals",
+      "categorySubtitle": "Limited Time Drops • Duo Crave Combos • Night Owl Specials",
+      "categoryBadge": "UNBEATABLE VALUE",
+      "columns": 2,
+      "itemCount": 6,
+      "items": [
+        {
+          "title": "Menu Item",
+          "desc": "Single Smash Burger or Classic Roll + Hot Fries + Fountain Drink. Guaranteed served in under 7 minutes for your busy work lunch.",
+          "price": "",
+          "oldPrice": "$16.50",
+          "isHero": true,
+          "badge": "DAILY 11AM-3PM"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Choice of any 2 Burgers or Rolls + 1 Shared Giant Truffle Loaded Fries + 2 Gourmet Milkshakes (Nutella Crunch / Biscoff).",
+          "price": "",
+          "oldPrice": "$44.00",
+          "isHero": false,
+          "badge": "PERFECT PAIR"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Double Oklahoma Smash + 3 Crispy Nashville Tenders + Cheese-smothered waffle fries + 1 Energy drink or Shake.",
+          "price": "",
+          "oldPrice": "$26.00",
+          "isHero": false,
+          "badge": "AFTER 10 PM"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Any Gourmet Roll or Single Smash Burger with small fries and iced tea. Available all day with active student verification.",
+          "price": "",
+          "oldPrice": "$14.00",
+          "isHero": false,
+          "badge": "VALID ID"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "3 Double Smashes, 3 Loaded Rolls, 24 Bone-in Crispy Wings, 2 XL seasoned fries & 6 dipping pots with 2L soda.",
+          "price": "",
+          "oldPrice": "$98.00",
+          "isHero": false,
+          "badge": "FEEDS 6"
+        },
+        {
+          "title": "Menu Item",
+          "desc": "Add 4 crispy cinnamon churro loops with warm salted caramel & Belgian chocolate dip to any burger or meal box order.",
+          "price": "",
+          "oldPrice": "$8.50",
+          "isHero": false,
+          "badge": "DESSERT DEAL"
+        }
+      ]
+    }
+  ]
+}

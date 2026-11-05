@@ -1,7 +1,7 @@
 {
   "name": "canvas-menu-pipeline",
-  "version": "1.0.0",
-  "description": "High-fidelity Illustrator-style Canvas Studio, print engineering verification loop, and dynamic vector PDF compiler.",
+  "version": "2.0.0",
+  "description": "High-fidelity Illustrator-style Canvas Studio, print engineering verification loop, 8-format universal export engine, and dynamic vector PDF compiler.",
   "type": "module",
   "main": "scripts/editor-server.mjs",
   "scripts": {
@@ -11,7 +11,8 @@
     "verify": "node scripts/verify-and-build.mjs",
     "test:responsive": "node scripts/test-responsive.mjs",
     "test:artboard": "node scripts/test-artboard-tool.mjs",
-    "test": "node scripts/test-responsive.mjs && node scripts/test-artboard-tool.mjs"
+    "test:exports": "node scripts/test-exports.mjs",
+    "test": "node scripts/test-responsive.mjs && node scripts/test-artboard-tool.mjs && node scripts/test-exports.mjs"
   },
   "keywords": [
     "canvas",

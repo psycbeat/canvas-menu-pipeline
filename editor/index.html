@@ -58,7 +58,12 @@
         <span class="btn-text">Save</span>
       </button>
 
-      <button id="btnCompilePdf" class="btn btn-primary" title="Compile Production PDF">
+      <button id="btnOpenExportModal" class="btn btn-primary" title="Export Artwork Studio (Ctrl+E)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span class="btn-text">Export</span>
+      </button>
+
+      <button id="btnCompilePdf" class="btn btn-secondary" title="Compile Production PDF">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
         <span class="btn-text">PDF</span>
       </button>
@@ -251,6 +256,52 @@
           <button id="btnDuplicateArtboard" class="btn-micro" title="Duplicate Active Artboard">Duplicate</button>
           <button id="btnDeleteArtboard" class="btn-micro btn-danger" title="Delete Active Artboard">Delete</button>
         </div>
+
+        <!-- Grid Layout Switcher -->
+        <div class="prop-field mt-3">
+          <label>Grid Columns</label>
+          <div class="segmented-control" id="segGridCols">
+            <button class="seg-btn" data-cols="1">1 Col</button>
+            <button class="seg-btn active" data-cols="2">2 Col</button>
+            <button class="seg-btn" data-cols="3">3 Col</button>
+          </div>
+        </div>
+
+        <!-- Brand Theme Presets -->
+        <div class="prop-field mt-3">
+          <label>Brand Theme Preset</label>
+          <div class="theme-swatches-grid" id="themeSwatches">
+            <button class="theme-swatch-chip active" data-theme="botanical-forest" title="Botanical Forest (Modern Green)">
+              <span class="swatch-circle" style="background: #15803D;"></span>
+              <span class="swatch-label">Botanical</span>
+            </button>
+            <button class="theme-swatch-chip" data-theme="midnight-gold" title="Midnight Gold (Dark Luxury)">
+              <span class="swatch-circle" style="background: #EAB308; border-color: #713F12;"></span>
+              <span class="swatch-label">Midnight</span>
+            </button>
+            <button class="theme-swatch-chip" data-theme="bistro-crimson" title="Bistro Crimson (Smash Burger Diner)">
+              <span class="swatch-circle" style="background: #DC2626;"></span>
+              <span class="swatch-label">Crimson</span>
+            </button>
+            <button class="theme-swatch-chip" data-theme="artisanal-terracotta" title="Artisanal Terracotta (Wood-Fired Bakery)">
+              <span class="swatch-circle" style="background: #C2410C;"></span>
+              <span class="swatch-label">Terracotta</span>
+            </button>
+            <button class="theme-swatch-chip" data-theme="minimal-monochrome" title="Minimal Monochrome (Nordic Specialty)">
+              <span class="swatch-circle" style="background: #18181B; border: 1px solid #52525B;"></span>
+              <span class="swatch-label">Minimal</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Vector QR Code URL -->
+        <div class="prop-field mt-3">
+          <label for="inpFooterQrUrl">Footer QR Code URL</label>
+          <div class="qr-input-row">
+            <input type="text" id="inpFooterQrUrl" value="https://cravelab.menu" placeholder="https://yourmenu.com">
+            <button id="btnUpdateQr" class="btn-micro" title="Update Live QR Vector">Apply</button>
+          </div>
+        </div>
       </div>
 
       <!-- Quick Action Toolbar -->
@@ -407,10 +458,155 @@
     </aside>
   </div>
 
+  <!-- UNIVERSAL EXPORT STUDIO MODAL (CTRL + E) -->
+  <div class="modal-backdrop" id="exportModalBackdrop" style="display: none;">
+    <div class="export-modal" id="exportModal" role="dialog" aria-modal="true" aria-labelledby="exportModalTitle">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-badge">EXPORT STUDIO</span>
+          <h3 id="exportModalTitle">UNIVERSAL MULTI-FORMAT ENGINE</h3>
+        </div>
+        <button class="btn-modal-close" id="btnCloseExportModal" title="Close (Esc)">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- 8 Format Selection Cards -->
+        <label class="modal-section-label">Select Output Format</label>
+        <div class="export-format-grid" id="formatCards">
+          <div class="format-card active" data-format="pdf">
+            <div class="format-icon">PDF</div>
+            <div class="format-info">
+              <span class="format-name">Vector PDF</span>
+              <span class="format-desc">Print-ready, crisp vector layout</span>
+            </div>
+            <span class="format-badge">PRINT</span>
+          </div>
+
+          <div class="format-card" data-format="png">
+            <div class="format-icon">PNG</div>
+            <div class="format-info">
+              <span class="format-name">Lossless PNG</span>
+              <span class="format-desc">Up to 300 DPI Retina image</span>
+            </div>
+            <span class="format-badge">RASTER</span>
+          </div>
+
+          <div class="format-card" data-format="jpg">
+            <div class="format-icon">JPG</div>
+            <div class="format-info">
+              <span class="format-name">Compact JPEG</span>
+              <span class="format-desc">Compressed for web & delivery</span>
+            </div>
+            <span class="format-badge">WEB</span>
+          </div>
+
+          <div class="format-card" data-format="webp">
+            <div class="format-icon">WEBP</div>
+            <div class="format-info">
+              <span class="format-name">Modern WebP</span>
+              <span class="format-desc">Next-gen web format (~40% smaller)</span>
+            </div>
+            <span class="format-badge">FAST</span>
+          </div>
+
+          <div class="format-card" data-format="svg">
+            <div class="format-icon">SVG</div>
+            <div class="format-info">
+              <span class="format-name">Scalable SVG</span>
+              <span class="format-desc">Standalone vector with inlined assets</span>
+            </div>
+            <span class="format-badge">VECTOR</span>
+          </div>
+
+          <div class="format-card" data-format="eps">
+            <div class="format-icon">EPS</div>
+            <div class="format-info">
+              <span class="format-name">PostScript EPS</span>
+              <span class="format-desc">Adobe Illustrator & print pre-press</span>
+            </div>
+            <span class="format-badge">PRE-PRESS</span>
+          </div>
+
+          <div class="format-card" data-format="html">
+            <div class="format-icon">HTML</div>
+            <div class="format-info">
+              <span class="format-name">Single-File HTML</span>
+              <span class="format-desc">Standalone webpage with bundled assets</span>
+            </div>
+            <span class="format-badge">WEB</span>
+          </div>
+
+          <div class="format-card" data-format="json">
+            <div class="format-icon">JSON</div>
+            <div class="format-info">
+              <span class="format-name">Menu Data JSON</span>
+              <span class="format-desc">Structured items, prices & POS sync</span>
+            </div>
+            <span class="format-badge">DATA</span>
+          </div>
+        </div>
+
+        <!-- Scope & Quality Options Grid -->
+        <div class="export-options-grid">
+          <!-- Scope selector -->
+          <div class="option-col">
+            <label class="modal-section-label">Export Scope</label>
+            <div class="segmented-control" id="segExportScope">
+              <button class="seg-btn active" data-scope="current">Active Board (<span id="exportActiveBoardNum">01</span>)</button>
+              <button class="seg-btn" data-scope="all">All Boards</button>
+            </div>
+          </div>
+
+          <!-- DPI Scale selector (for PNG / JPG / WebP) -->
+          <div class="option-col" id="optDpiScale">
+            <label class="modal-section-label">Resolution / DPI</label>
+            <div class="segmented-control" id="segExportScale">
+              <button class="seg-btn" data-scale="1">1x (96 DPI)</button>
+              <button class="seg-btn active" data-scale="2">2x (Retina)</button>
+              <button class="seg-btn" data-scale="3">3x (300 DPI)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pre-press & Transparency Switches -->
+        <div class="export-toggles-row">
+          <label class="checkbox-row" id="chkCropMarksRow">
+            <input type="checkbox" id="chkCropMarks">
+            <span class="checkbox-label">Include Commercial Crop Marks & 3mm Bleed (Print Shops)</span>
+          </label>
+
+          <label class="checkbox-row" id="chkTransparentRow" style="display: none;">
+            <input type="checkbox" id="chkTransparent">
+            <span class="checkbox-label">Transparent Background (Alpha Channel)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="footer-left-actions">
+          <input type="file" id="inpImportJson" accept=".json" style="display: none;">
+          <button id="btnTriggerImportJson" class="btn btn-secondary" title="Import structured menu data from JSON">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Import JSON</span>
+          </button>
+        </div>
+
+        <div class="footer-right-actions">
+          <button id="btnCancelExport" class="btn btn-secondary">Cancel</button>
+          <button id="btnExecuteExport" class="btn btn-primary btn-lg">
+            <svg class="export-spinner" id="exportSpinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display: none;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            <span id="btnExecuteExportText">Download Vector PDF</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <!-- SCRIPT -->
+  <!-- SCRIPTS -->
+  <script src="qr-svg.js"></script>
   <script src="editor.js"></script>
 </body>
 </html>
