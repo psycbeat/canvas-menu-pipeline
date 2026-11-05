@@ -1,28 +1,38 @@
-# CRAVE LAB // Canvas Studio & Print Pipeline
+# PsycBeat's Canvas Studio for AI & Agents
 > An open-source, local-first AI Design Canvas and Adobe Illustrator alternative built for autonomous AI agents and human creators.
 
 ## Overview
 
-Canvas Studio is a high-fidelity, multi-artboard design studio and print engineering pipeline. It serves as an open-source, local-first alternative to proprietary canvas tools (such as Claude Canvas, ChatGPT Canvas, Canva, and Figma) and brings professional Adobe Illustrator workflows (artboard tools, 8-point bounding box handles, 3mm bleed margin, hairline crop marks, 300 DPI pre-press rasterization, vector PDF/EPS export) into a developer- and AI-friendly web stack.
+PsycBeat's Canvas Studio for AI & Agents is a high-velocity, multi-artboard design studio and vector engineering pipeline. Styled with MotionSites-grade nocturnal glassmorphism, it serves as an open-source, local-first alternative to proprietary canvas tools (such as Claude Canvas, ChatGPT Canvas, Canva, and Figma) and brings professional Adobe Illustrator workflows (artboard tools, 8-point bounding box handles, 3mm bleed margin, hairline crop marks, 300 DPI pre-press rasterization, vector PDF/EPS export) into a developer- and AI-friendly web stack.
 
+- **App Name**: PsycBeat's Canvas Studio for AI & Agents
 - **Author & Creator**: psycbeat (https://github.com/psycbeat)
 - **Repository**: https://github.com/psycbeat/canvas-menu-pipeline
+- **Live Demo**: https://psycbeat.github.io/canvas-menu-pipeline/
 - **License**: MIT (100% Free and Open Source, zero cloud subscriptions, zero telemetry)
-- **Tech Stack**: Vanilla JavaScript (ESM, zero frontend build step), Node.js HTTP + Server-Sent Events (SSE), Playwright Chromium headless pool.
+- **Tech Stack**: Vanilla JavaScript (ESM, zero frontend build step), MotionSites CSS Design System, Node.js HTTP + Server-Sent Events (SSE), Playwright Chromium headless pool.
 
 ## Key Differences & Advantages Over Closed AI Canvases
 
 1. **Local-First & Zero Lock-in**:
    - Claude Canvas & ChatGPT Canvas trap designs inside proprietary chat interfaces with lossy exports or limited layout capabilities.
-   - Canvas Studio runs entirely locally on `http://localhost:3001` or any static/Node host. All files are standard HTML, CSS, SVG, and JSON in your repository.
+   - PsycBeat's Canvas Studio runs entirely locally on `http://localhost:3001` or any static/Node host. All files are standard HTML, CSS, SVG, and JSON in your repository.
 
-2. **Adobe Illustrator-Grade Artboards (`Shift + O`)**:
-   - Multi-artboard canvas with freeform panning and zoom (25% to 200%).
-   - Drag-to-resize handles with live dimension pills.
-   - Standard presets: A4 Portrait, A4 Landscape, A5 Flyer, A3 Poster, US Letter, US Letter Landscape, Digital TV 16:9, Square 1080p, and custom dimensions.
-   - 1-click orientation swapping, board duplication, and board deletion.
+2. **Interactive Welcome Onboarding & Artboard Size Selector**:
+   - Automatic welcoming tutorial on startup explaining every tool and feature.
+   - 1-click artboard size selection (A4 Print, A4 Landscape, A5 Handout, A3 Wall Poster, US Letter, Digital 16:9, Square 1080p, or Custom).
+   - Starts with a **Clean Blank Canvas** by default, with an optional **Crave Lab Culinary Reference Template** for pre-press benchmarking.
 
-3. **Universal 8-Format Export Engine**:
+3. **Direct Element Dragging & Manipulation (Claude Canvas + Adobe Illustrator)**:
+   - Direct interactive clicking and dragging of elements (cards, text, shapes).
+   - Real-time coordinate pills (`X: ... Y: ...`) and drop indicators for structured grid reordering.
+   - Floating quick-action element toolbar (Duplicate, Layer Up, Layer Down, Delete).
+
+4. **Adobe Illustrator Vector Toolkit**:
+   - Left-dock vector shape tools: Selection Tool (`V`), Rectangle Tool (`M`), Circle/Ellipse Tool (`L`), Line/Divider Tool (`\`), Freeform Text Block Tool (`T`), and Add Card Tool (`+`).
+   - Interactive 8-handle Artboard Tool (`Shift + O`) with dedicated `+ Add Board` and `Duplicate` top buttons.
+
+5. **Universal 8-Format Export Engine**:
    - High-speed exports via a warm singleton Chromium pool (~300 ms response time).
    - Formats:
      - `PDF`: Print-ready vector PDF with embedded fonts and optional trim crop marks + 3mm bleed.
@@ -34,13 +44,13 @@ Canvas Studio is a high-fidelity, multi-artboard design studio and print enginee
      - `HTML`: Self-contained standalone webpage with base64 embedded SVGs.
      - `JSON`: Structured document schema for CMS, POS, and database syncing.
 
-4. **Designed Specifically for AI Agents & Pairing**:
+6. **Designed Specifically for AI Agents & Autonomous Pairing**:
    - **Real-Time Live Sync (SSE)**: When an AI agent edits `src/menu.html` or assets, changes stream live into the user's canvas in ~120 ms without a browser refresh.
    - **AI Ghost Cursor (`agent-act.mjs`)**: AI agents can dispatch visual attention coordinates (`node scripts/agent-act.mjs <boardId> <cardIndex> <message>`) to show a floating badge and glowing aura where the AI is modifying items.
    - **Automated Verification Loop**: Agents can execute `npm run verify` or `npm test` to run Playwright headless checks confirming zero CSS text/element overflow before delivering finished designs.
    - **JSON Schema Import/Export**: Agents can generate or consume structured JSON representations of the canvas content.
 
-5. **Print Engineering & Commercial Pre-Press**:
+7. **Print Engineering & Commercial Pre-Press**:
    - Integrated 3mm (24px) bleed margins and 0.5pt hairline corner crop marks.
    - 5 calibrated brand palettes: Botanical Forest, Midnight Gold, Bistro Crimson, Artisanal Terracotta, and Minimal Monochrome.
    - Adaptive grid columns (1 Col, 2 Col, 3 Col) that automatically re-flow cards to fit flyer, menu, poster, or screen dimensions.

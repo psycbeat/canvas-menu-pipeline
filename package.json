@@ -1,7 +1,7 @@
 {
-  "name": "canvas-menu-pipeline",
-  "version": "2.0.0",
-  "description": "Open-source AI design canvas & Adobe Illustrator alternative for AI agents and creators. Multi-artboard studio, 8-format exports (PDF, SVG, EPS, PNG 300DPI), live SSE sync, and zero-overflow print verification.",
+  "name": "psycbeats-canvas-studio",
+  "version": "2.1.0",
+  "description": "PsycBeat's Canvas Studio for AI & Agents: Open-source AI design canvas & Adobe Illustrator alternative. Multi-artboard vector workbench, interactive element dragging, 8-format exports (PDF, 300 DPI, EPS, SVG), and live SSE sync.",
   "type": "module",
   "main": "scripts/editor-server.mjs",
   "scripts": {

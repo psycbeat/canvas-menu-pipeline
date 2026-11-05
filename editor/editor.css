@@ -1,19 +1,22 @@
-/* CRAVE LAB ILLUSTRATOR CANVAS STUDIO STYLES */
+/* PSYCBEAT'S CANVAS STUDIO FOR AI & AGENTS - MOTIONSITES LUXE EDITION */
 
 :root {
-  --app-bg: #1A1A1A;
-  --header-bg: #222222;
-  --panel-bg: #222222;
-  --panel-border: #333333;
-  --canvas-bg: #111111;
-  --accent-yellow: #FFE600;
-  --accent-blue: #0A84FF;
-  --accent-red: #FF334B;
-  --text-primary: #EEEEEE;
-  --text-muted: #999999;
-  --text-dim: #666666;
-  --input-bg: #161616;
-  --input-border: #383838;
+  --app-bg: #07080B;
+  --header-bg: rgba(12, 14, 21, 0.88);
+  --panel-bg: #0C0E15;
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --canvas-bg: #050608;
+  --accent-yellow: #FACC15;
+  --accent-blue: #38BDF8;
+  --accent-red: #F43F5E;
+  --text-primary: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+  --input-bg: rgba(255, 255, 255, 0.035);
+  --input-border: rgba(255, 255, 255, 0.1);
+  --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
+  --ease-out-quint: cubic-bezier(.22, 1, .36, 1);
+  --ease-standard: cubic-bezier(.25, .1, .25, 1);
 }
 
 * {
@@ -254,15 +257,20 @@ body.illustrator-theme {
   border-color: #38bdf8;
 }
 
-/* Artboard Switcher Tabs */
+/* Artboard Switcher Tabs - MotionSites Floating Pill Track */
 .artboard-tabs {
   display: flex;
-  gap: 3px;
+  align-items: center;
+  gap: 4px;
   flex-shrink: 1;
   min-width: 0;
   overflow-x: auto;
   scrollbar-width: none;
   white-space: nowrap;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  padding: 3px 6px;
 }
 
 .artboard-tabs::-webkit-scrollbar {
@@ -271,47 +279,48 @@ body.illustrator-theme {
 
 .tab-btn {
   background: transparent;
-  border: none;
-  color: #888888;
+  border: 1px solid transparent;
+  color: #94A3B8;
   font-size: 11.5px;
   font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 4px;
+  padding: 5px 12px;
+  border-radius: 9999px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.16s var(--ease-out-expo);
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
 }
 
 .tab-btn:hover {
   color: #FFFFFF;
-  background-color: #2C2C2C;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .tab-btn.active {
-  color: #000000;
-  background-color: var(--accent-yellow);
+  color: #07080B;
+  background: #FFFFFF;
   font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 .tab-btn.all-boards-btn {
-  border: 1px solid #444;
-  margin-left: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin-left: 2px;
 }
 
 .tab-btn.add-board-tab-btn {
   border: 1px dashed rgba(56, 189, 248, 0.45);
   background-color: rgba(56, 189, 248, 0.08);
   color: #38bdf8;
-  margin-left: 4px;
-  padding: 4px 8px;
+  margin-left: 2px;
+  padding: 5px 10px;
 }
 
 .tab-btn.add-board-tab-btn:hover {
   background-color: #38bdf8;
-  color: #0f172a;
+  color: #07080B;
   border-color: #38bdf8;
 }
 
@@ -333,10 +342,10 @@ body.illustrator-theme {
   display: flex;
   align-items: center;
   gap: 4px;
-  background-color: #161616;
-  border: 1px solid var(--panel-border);
-  border-radius: 4px;
-  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  padding: 3px 8px;
 }
 
 .zoom-controls button {
@@ -392,42 +401,61 @@ body.illustrator-theme {
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 7px;
   font-size: 12px;
-  font-weight: 700;
-  padding: 6px 14px;
-  border-radius: 4px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 9999px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.18s var(--ease-out-expo);
   border: none;
+  font-family: inherit;
+  letter-spacing: -0.01em;
 }
 
 .btn-secondary {
-  background-color: #2E2E2E;
-  color: #FFFFFF;
-  border: 1px solid #444444;
+  background: rgba(255, 255, 255, 0.04);
+  color: #E2E8F0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .btn-secondary:hover {
-  background-color: #3D3D3D;
-  border-color: #666666;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
 }
 
 .btn-primary {
-  background-color: var(--accent-yellow);
-  color: #0A0A0A;
-  font-weight: 800;
+  background: #FFFFFF;
+  color: #07080B;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 .btn-primary:hover {
-  background-color: #FFF04D;
-  box-shadow: 0 0 10px rgba(255, 230, 0, 0.4);
+  background: #F8FAFC;
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.18);
+  color: #07080B;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
 }
 
 .btn-block {
   width: 100%;
   justify-content: center;
-  padding: 8px;
+  padding: 10px;
 }
 
 .status-pill {
@@ -1662,3 +1690,430 @@ input[type="range"] {
     flex: 1;
   }
 }
+
+/* ============================================================
+   MOTIONSITES-INSPIRED WELCOME & NEW DOCUMENT ONBOARDING
+   ============================================================ */
+.welcome-modal {
+  width: 820px;
+  max-width: 95vw;
+  max-height: 92vh;
+  background: rgba(12, 14, 21, 0.95);
+  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(32px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: scaleUp 0.22s var(--ease-out-expo);
+  position: relative;
+}
+
+.pb-badge {
+  background: #FFFFFF !important;
+  color: #07080B !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.brand-sub {
+  font-size: 9.5px;
+  font-style: normal;
+  color: #38BDF8;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin-left: 6px;
+  text-transform: uppercase;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 2px 7px;
+  border-radius: 9999px;
+}
+
+.welcome-modal-body {
+  padding: 22px 28px;
+  overflow-y: auto;
+  max-height: calc(92vh - 140px);
+}
+
+.welcome-hero-banner {
+  background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.15) 0%, rgba(12, 14, 21, 0.2) 70%), rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+}
+
+.welcome-hero-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #38BDF8;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.welcome-hero-title {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.4px;
+}
+
+.welcome-hero-sub {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #94A3B8;
+  margin: 0;
+  max-width: 640px;
+}
+
+.welcome-nav-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
+}
+
+.welcome-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #94A3B8;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.16s var(--ease-out-expo);
+}
+
+.welcome-tab-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.welcome-tab-btn.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.welcome-presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.wpreset-card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.18s var(--ease-out-expo);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.wpreset-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-2px);
+}
+
+.wpreset-card.active {
+  background: rgba(56, 189, 248, 0.09);
+  border-color: #38BDF8;
+  box-shadow: 0 0 0 1px #38BDF8, 0 8px 24px rgba(56, 189, 248, 0.15);
+}
+
+.wpreset-icon {
+  font-size: 22px;
+}
+
+.wpreset-info strong {
+  display: block;
+  font-size: 13.5px;
+  color: #F8FAFC;
+  font-weight: 700;
+}
+
+.wpreset-info span {
+  font-size: 11px;
+  color: #94A3B8;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.wpreset-tag {
+  align-self: flex-start;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 2px 7px;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.welcome-template-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.template-choice-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.18s var(--ease-out-expo);
+}
+
+.template-choice-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.template-choice-card.active {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: #38BDF8;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+}
+
+.template-choice-card input[type="radio"] {
+  margin-top: 3px;
+  accent-color: #38BDF8;
+}
+
+.choice-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin-bottom: 4px;
+}
+
+.choice-title em {
+  font-style: normal;
+  font-size: 11.5px;
+  color: #38BDF8;
+  font-weight: 600;
+}
+
+.choice-desc {
+  display: block;
+  font-size: 12.5px;
+  color: #94A3B8;
+  line-height: 1.45;
+}
+
+/* Tour Feature Grid */
+.tour-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.tour-feature-card {
+  background: #161822;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.tour-feature-badge {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #38bdf8;
+  margin-bottom: 8px;
+}
+
+.tour-feature-card h4 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.tour-feature-card p {
+  margin: 0;
+  font-size: 12px;
+  color: #94A3B8;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   CLAUDE CANVAS & ILLUSTRATOR STYLE ELEMENT DRAGGING & REORDERING
+   ============================================================ */
+.menu-card, .vector-shape-item {
+  cursor: grab !important;
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.12s ease;
+  position: relative;
+}
+
+.menu-card:active, .vector-shape-item:active {
+  cursor: grabbing !important;
+}
+
+.menu-card.is-dragging, .vector-shape-item.is-dragging {
+  cursor: grabbing !important;
+  opacity: 0.92;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px #38bdf8 !important;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.menu-card.drop-before-indicator {
+  border-top: 3px solid #38bdf8 !important;
+}
+
+.menu-card.drop-after-indicator {
+  border-bottom: 3px solid #38bdf8 !important;
+}
+
+/* Floating Pos Coordinate Pill */
+.drag-coordinate-pill {
+  position: absolute;
+  top: -24px;
+  left: 0;
+  background: #0f172a;
+  color: #38bdf8;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Floating Element Actions Mini Toolbar */
+.floating-element-toolbar {
+  position: absolute;
+  top: -34px;
+  right: 0;
+  background: #141722;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  z-index: 1050;
+  animation: fadeIn 0.12s ease-out;
+}
+
+.floating-element-toolbar button {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  width: 26px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  transition: all 0.1s ease;
+}
+
+.floating-element-toolbar button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.floating-element-toolbar button.btn-toolbar-del:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+}
+
+/* Vector Shapes */
+.vector-shape-item {
+  box-sizing: border-box;
+}
+
+.vector-shape-rect {
+  min-height: 80px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.vector-shape-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.1);
+  border: 2px solid #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+}
+
+.vector-shape-line {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  margin: 16px 0;
+  width: 100%;
+}
+
+.vector-text-block {
+  padding: 8px 12px;
+  min-height: 40px;
+}
+
+.vector-text-block h2 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--color-text-primary, #FFFFFF);
+}
+
+.vector-text-block p {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  color: var(--color-text-muted, #94A3B8);
+}
+
+/* Top bar buttons */
+.btn-sm {
+  padding: 4px 8px !important;
+  font-size: 11px !important;
+}
+
+.dup-board-tab-btn {
+  border: 1px solid #444 !important;
+  margin-left: 2px;
+}
+.dup-board-tab-btn:hover {
+  background: #2C2C2C !important;
+  color: #FFFFFF !important;
+}
+

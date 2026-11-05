@@ -150,7 +150,8 @@ async function runTestSuite() {
   const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
   const page = await context.newPage();
 
-  await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+  await page.addInitScript(() => localStorage.setItem('psycbeat_canvas_welcomed', 'true'));
+  await page.goto(`${BASE_URL}?template=demo`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(1000);
 
   // 1. Test Theme Switcher

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRAVE LAB // Illustrator Canvas Studio</title>
+  <title>PsycBeat's Canvas Studio for AI &amp; Agents // Open Design Engine</title>
   <link rel="stylesheet" href="editor.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,12 +14,12 @@
   <!-- TOP APPLICATION BAR -->
   <header class="app-header">
     <div class="header-left">
-      <div class="app-brand">
-        <span class="brand-badge">Ai</span>
-        <span class="brand-title">CANVAS <strong>STUDIO</strong></span>
+      <div class="app-brand" title="PsycBeat's Canvas Studio for AI and Agents">
+        <span class="brand-badge pb-badge">Pb</span>
+        <span class="brand-title">PSYCBEAT'S <strong>CANVAS STUDIO</strong> <span class="brand-sub">FOR AI &amp; AGENTS</span></span>
       </div>
       <div class="doc-meta">
-        <span class="doc-name">crave-lab-menu-a4.html</span>
+        <span class="doc-name" id="docNameDisplay">Untitled Artboard</span>
         <span class="doc-badge" id="docBadge">A4 &bull; 794 &times; 1123 px</span>
         <a href="https://github.com/psycbeat/canvas-menu-pipeline" target="_blank" rel="noopener" class="author-badge" title="Created by psycbeat on GitHub">by @psycbeat</a>
       </div>
@@ -27,13 +27,10 @@
 
     <!-- ARTBOARD SELECTOR TABS -->
     <nav class="artboard-tabs" id="artboardTabs">
-      <button class="tab-btn active" data-board="page-1"><span class="tab-num">01</span><span class="tab-label"> Rolls</span></button>
-      <button class="tab-btn" data-board="page-2"><span class="tab-num">02</span><span class="tab-label"> Smash</span></button>
-      <button class="tab-btn" data-board="page-3"><span class="tab-num">03</span><span class="tab-label"> Burgers</span></button>
-      <button class="tab-btn" data-board="page-4"><span class="tab-num">04</span><span class="tab-label"> Boxes</span></button>
-      <button class="tab-btn" data-board="page-5"><span class="tab-num">05</span><span class="tab-label"> Deals</span></button>
+      <button class="tab-btn active" data-board="page-1"><span class="tab-num">01</span><span class="tab-label"> Board 1</span></button>
       <button class="tab-btn all-boards-btn" data-board="all" title="View all boards in grid"><span class="tab-num">&#9638;</span><span class="tab-label"> All Boards</span></button>
-      <button class="tab-btn add-board-tab-btn" id="btnTopAddArtboard" title="Add New Artboard (Shift+N)"><span class="tab-num">+</span><span class="tab-label"> New Board</span></button>
+      <button class="tab-btn add-board-tab-btn" id="btnTopAddArtboard" title="Add New Artboard (Shift+N)"><span class="tab-num">+</span><span class="tab-label"> Add Board</span></button>
+      <button class="tab-btn dup-board-tab-btn" id="btnTopDupArtboard" title="Duplicate Active Artboard"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span class="tab-label"> Duplicate</span></button>
     </nav>
 
     <!-- HEADER RIGHT CONTROLS -->
@@ -70,6 +67,11 @@
         <span class="btn-text">PDF</span>
       </button>
 
+      <button id="btnHeaderTour" class="btn btn-secondary" title="Open Welcome Guide, Presets & Tour">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <span class="btn-text">Tour / New</span>
+      </button>
+
       <button id="btnToggleInspector" class="btn btn-secondary" title="Toggle Properties Panel (I)">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
         <span class="btn-text-panel">Props</span>
@@ -85,17 +87,37 @@
     
     <!-- LEFT TOOL PALETTE (ILLUSTRATOR STYLE) -->
     <aside class="tool-palette" id="toolPalette">
-      <button class="tool-btn active" data-tool="select" title="Selection Tool (V)">
+      <button class="tool-btn active" data-tool="select" title="Selection & Move Tool (V) - Click to select, drag to reposition anywhere">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 2l6.5 18 3.5-7 7-3.5L3 2z"/></svg>
         <span class="tool-key">V</span>
       </button>
 
-      <button class="tool-btn" data-tool="text" title="Type & Text Tool (T)">
+      <button class="tool-btn" data-tool="rect" title="Vector Rectangle / Box (M)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        <span class="tool-key">M</span>
+      </button>
+
+      <button class="tool-btn" data-tool="circle" title="Vector Circle / Stamp (L)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
+        <span class="tool-key">L</span>
+      </button>
+
+      <button class="tool-btn" data-tool="line" title="Vector Divider Line (\)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="20" x2="20" y2="4"/></svg>
+        <span class="tool-key">\</span>
+      </button>
+
+      <button class="tool-btn" data-tool="text" title="Type & Text Tool (T) - Drop headline or editable text">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5 4v3h5.5v12h3V7H19V4H5z"/></svg>
         <span class="tool-key">T</span>
       </button>
 
-      <button class="tool-btn" data-tool="price" title="Price Pill & Strikethrough Tool (P)">
+      <button class="tool-btn" data-tool="add-card" title="Add Modular Card (+)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span class="tool-key">+</span>
+      </button>
+
+      <button class="tool-btn" data-tool="price" title="Price Pill & Badge (P)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V18h-2v-1.07A4.47 4.47 0 0 1 8 13.5l1.87-.77a2.6 2.6 0 0 0 2.13 2.27V12.1l-2.43-.68A4.47 4.47 0 0 1 7 8.5 4.5 4.5 0 0 1 11 4.07V3h2v1.07A4.47 4.47 0 0 1 16 7.5l-1.87.77a2.6 2.6 0 0 0-2.13-2.27v2.9l2.43.68A4.47 4.47 0 0 1 17 12.5a4.5 4.5 0 0 1-4 4.43z"/></svg>
         <span class="tool-key">P</span>
       </button>
@@ -106,11 +128,6 @@
       </button>
 
       <div class="tool-separator"></div>
-
-      <button class="tool-btn" data-tool="add-card" title="Add Menu Card (+)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-        <span class="tool-key">+</span>
-      </button>
 
       <button class="tool-btn" data-tool="artboard" id="toolArtboard" title="Artboard Tool (Shift+O)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -126,6 +143,24 @@
         </svg>
         <span class="tool-key">O</span>
       </button>
+
+      <button class="tool-btn" data-tool="guides" id="toggleGuidesBtn" title="Toggle Print Safe Zone Guides (G)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 2"></rect></svg>
+        <span class="tool-key">G</span>
+      </button>
+
+      <div class="tool-separator"></div>
+
+      <button class="tool-btn" data-tool="hand" title="Hand Tool / Pan (H)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 11V7a2 2 0 0 0-4 0v3.5a.5.5 0 0 1-1 0V4a2 2 0 0 0-4 0v6.5a.5.5 0 0 1-1 0V6a2 2 0 0 0-4 0v9.5c0 4.69 3.81 8.5 8.5 8.5s8.5-3.81 8.5-8.5V11a2 2 0 0 0-2-2c-.5 0-.96.18-1.32.48z"/></svg>
+        <span class="tool-key">H</span>
+      </button>
+
+      <button class="tool-btn" data-tool="zoom" title="Zoom Tool (Z)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <span class="tool-key">Z</span>
+      </button>
+    </aside>
 
       <button class="tool-btn" data-tool="guides" id="toggleGuidesBtn" title="Toggle Print Safe Zone Guides (G)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 2"></rect></svg>
@@ -459,6 +494,170 @@
       </div>
 
     </aside>
+  </div>
+
+  <!-- WELCOME & NEW DOCUMENT ONBOARDING MODAL -->
+  <div class="modal-backdrop welcome-modal-backdrop" id="welcomeModalBackdrop" style="display: none;">
+    <div class="welcome-modal" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeModalTitle">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-badge pb-badge">PSYCBEAT'S STUDIO</span>
+          <h3 id="welcomeModalTitle">PSYCBEAT'S CANVAS STUDIO FOR AI &amp; AGENTS</h3>
+        </div>
+        <button class="btn-modal-close" id="btnCloseWelcomeModal" title="Close (Esc)">&times;</button>
+      </div>
+
+      <div class="modal-body welcome-modal-body">
+        <div class="welcome-hero-banner">
+          <div class="welcome-hero-badge">AI VECTOR DESIGN WORKBENCH &bull; MOTIONSITES UI</div>
+          <h2 class="welcome-hero-title">Welcome to PsycBeat's Canvas Studio</h2>
+          <p class="welcome-hero-sub">The open-source alternative to Claude Canvas &amp; Adobe Illustrator for AI &amp; agents. Select your artboard size preset, start with a blank clean canvas or reference template, and position vector elements freely.</p>
+        </div>
+
+        <!-- TABS: START NEW DOCUMENT vs QUICK TOUR -->
+        <div class="welcome-nav-tabs">
+          <button class="welcome-tab-btn active" id="tabBtnNewDoc" data-wtab="new-doc">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            <span>Start Document</span>
+          </button>
+          <button class="welcome-tab-btn" id="tabBtnTour" data-wtab="tour">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+            <span>Interactive Guide &amp; Controls</span>
+          </button>
+        </div>
+
+        <!-- SECTION 1: NEW DOCUMENT PRESETS -->
+        <div class="welcome-tab-content active" id="contentNewDoc">
+          <label class="modal-section-label">1. Choose Initial Artboard Size Preset</label>
+          <div class="welcome-presets-grid" id="welcomePresetsGrid">
+            <div class="wpreset-card active" data-w="794" data-h="1123" data-name="A4 Portrait">
+              <div class="wpreset-icon">📄</div>
+              <div class="wpreset-info">
+                <strong>A4 Document</strong>
+                <span>794 &times; 1123 px</span>
+              </div>
+              <span class="wpreset-tag">Print Standard</span>
+            </div>
+
+            <div class="wpreset-card" data-w="1123" data-h="794" data-name="A4 Landscape">
+              <div class="wpreset-icon">📑</div>
+              <div class="wpreset-info">
+                <strong>A4 Landscape</strong>
+                <span>1123 &times; 794 px</span>
+              </div>
+              <span class="wpreset-tag">Landscape</span>
+            </div>
+
+            <div class="wpreset-card" data-w="559" data-h="794" data-name="A5 Flyer">
+              <div class="wpreset-icon">📜</div>
+              <div class="wpreset-info">
+                <strong>A5 Flyer</strong>
+                <span>559 &times; 794 px</span>
+              </div>
+              <span class="wpreset-tag">Handbill</span>
+            </div>
+
+            <div class="wpreset-card" data-w="1123" data-h="1587" data-name="A3 Poster">
+              <div class="wpreset-icon">🖼️</div>
+              <div class="wpreset-info">
+                <strong>A3 Poster</strong>
+                <span>1123 &times; 1587 px</span>
+              </div>
+              <span class="wpreset-tag">Wall Poster</span>
+            </div>
+
+            <div class="wpreset-card" data-w="816" data-h="1056" data-name="US Letter">
+              <div class="wpreset-icon">✉️</div>
+              <div class="wpreset-info">
+                <strong>US Letter</strong>
+                <span>816 &times; 1056 px</span>
+              </div>
+              <span class="wpreset-tag">Office</span>
+            </div>
+
+            <div class="wpreset-card" data-w="1920" data-h="1080" data-name="Digital 16:9">
+              <div class="wpreset-icon">📺</div>
+              <div class="wpreset-info">
+                <strong>Digital 16:9</strong>
+                <span>1920 &times; 1080 px</span>
+              </div>
+              <span class="wpreset-tag">Screen / TV</span>
+            </div>
+
+            <div class="wpreset-card" data-w="1080" data-h="1080" data-name="Square 1080p">
+              <div class="wpreset-icon">📱</div>
+              <div class="wpreset-info">
+                <strong>Square 1080p</strong>
+                <span>1080 &times; 1080 px</span>
+              </div>
+              <span class="wpreset-tag">Social Post</span>
+            </div>
+          </div>
+
+          <label class="modal-section-label mt-3">2. Choose Starting Content</label>
+          <div class="welcome-template-choices">
+            <label class="template-choice-card active" id="optChoiceBlank">
+              <input type="radio" name="welcomeCanvasMode" value="blank" checked>
+              <div class="choice-body">
+                <span class="choice-title">✨ Blank Clean Canvas <em>(Recommended)</em></span>
+                <span class="choice-desc">Start fresh with a pristine artboard. Double-click to type text, drag shapes from the toolbar, or let AI generate content.</span>
+              </div>
+            </label>
+
+            <label class="template-choice-card" id="optChoiceDemo">
+              <input type="radio" name="welcomeCanvasMode" value="demo">
+              <div class="choice-body">
+                <span class="choice-title">🍽️ Crave Lab Reference Template <em>(Sample Menu)</em></span>
+                <span class="choice-desc">Explore the 5-page culinary reference template to see pre-press dietary tags, badges, and print layout benchmarks.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- SECTION 2: INTERACTIVE TOUR -->
+        <div class="welcome-tab-content" id="contentTour" style="display: none;">
+          <div class="tour-feature-grid">
+            <div class="tour-feature-card">
+              <div class="tour-feature-badge">01 // MOVEMENT</div>
+              <h4>Direct Drag &amp; Freeform Positioning</h4>
+              <p>Click any card or shape with the <strong>Selection Tool (V)</strong>. Drag to reposition it anywhere on the artboard. It moves smoothly with live coordinate feedback.</p>
+            </div>
+
+            <div class="tour-feature-card">
+              <div class="tour-feature-badge">02 // VECTOR TOOLS</div>
+              <h4>Illustrator Vector Toolkit</h4>
+              <p>Add <strong>Rectangles (M)</strong>, <strong>Circles (L)</strong>, <strong>Divider Lines (\)</strong>, and <strong>Text Blocks (T)</strong> directly from the left dock.</p>
+            </div>
+
+            <div class="tour-feature-card">
+              <div class="tour-feature-badge">03 // ARTBOARDS</div>
+              <h4>Dynamic Artboard Engine (Shift+O)</h4>
+              <p>Drag 8 interactive handles to resize artboards freely. Use the top bar buttons to <strong>+ Add Board</strong> or <strong>Duplicate</strong> instantly.</p>
+            </div>
+
+            <div class="tour-feature-card">
+              <div class="tour-feature-badge">04 // EXPORTS</div>
+              <h4>Pre-Press 8-Format Export (Ctrl+E)</h4>
+              <p>Export commercial 300 DPI PNGs, print-ready Vector PDFs with 3mm bleed + crop marks, Adobe Illustrator PostScript EPS, SVG, and structured JSON.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <label class="checkbox-row">
+          <input type="checkbox" id="chkDontShowWelcomeAgain">
+          <span class="checkbox-label">Don't show welcome screen on startup</span>
+        </label>
+
+        <div class="footer-right-actions">
+          <button id="btnWelcomeStart" class="btn btn-primary btn-lg">
+            <span>Create &amp; Start Canvas</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- UNIVERSAL EXPORT STUDIO MODAL (CTRL + E) -->

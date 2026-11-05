@@ -1,13 +1,14 @@
-# 🎨 Canvas Studio // The Open-Source AI Design Canvas
-### An Adobe Illustrator-Inspired Multi-Artboard Studio & Print Pipeline for Autonomous AI Agents and Human Creators
+# 🎨 PsycBeat's Canvas Studio for AI & Agents
+### An Adobe Illustrator-Inspired Multi-Artboard Design Workbench & Vector Pipeline for AI Agents and Human Creators
 
 > **A 100% free, local-first alternative to Claude Canvas, ChatGPT Canvas, Canva, and Figma.**
-> Equipped with Illustrator-grade artboards (`Shift + O`), an 8-format universal export engine (Vector PDF, 300 DPI PNG, EPS, SVG, WebP, JPG, HTML, JSON), commercial pre-press crop marks & 3mm bleed, real-time SSE live sync, and an automated zero-overflow visual verification loop.
+> Styled with **MotionSites-grade nocturnal glassmorphism**, equipped with an interactive **Welcome Tutorial & Artboard Size Selector**, direct element dragging, Illustrator vector shapes (`M`, `L`, `\`, `T`), Illustrator-grade artboards (`Shift + O`), an 8-format universal export engine (Vector PDF, 300 DPI PNG, EPS, SVG, WebP, JPG, HTML, JSON), commercial pre-press crop marks & 3mm bleed, real-time SSE live sync, and an automated zero-overflow visual verification loop.
 >
 > **Created & Architected by [@psycbeat](https://github.com/psycbeat)**
 
 [![Claude Canvas Alternative](https://img.shields.io/badge/Alternative%20To-Claude%20%26%20ChatGPT%20Canvas-8A2BE2.svg)](#-why-canvas-studio-beats-closed-ai-canvases)
 [![Inspired by Adobe Illustrator](https://img.shields.io/badge/Inspired%20By-Adobe%20Illustrator-FF9A00.svg)](#-adobe-illustrator-for-ai-agents)
+[![MotionSites UX/UI](https://img.shields.io/badge/UI%20Design-MotionSites%20Glass-38BDF8.svg)](#-motionsites-inspired-uxui)
 [![Zero Subscriptions](https://img.shields.io/badge/Cost-100%25%20Free%20%26%20Open%20Source-success.svg)](#-license)
 [![Node.js Version](https://img.shields.io/badge/Node.js-v18%2B-green.svg)](https://nodejs.org/)
 [![Playwright Tested](https://img.shields.io/badge/Verification-Playwright%20Chromium-blue.svg)](https://playwright.dev/)

@@ -90,10 +90,25 @@
     btnSwapOrientation: document.getElementById('btnSwapOrientation'),
     btnNewArtboard: document.getElementById('btnNewArtboard'),
     btnTopAddArtboard: document.getElementById('btnTopAddArtboard'),
+    btnTopDupArtboard: document.getElementById('btnTopDupArtboard'),
     btnDuplicateArtboard: document.getElementById('btnDuplicateArtboard'),
     btnClearBoard: document.getElementById('btnClearBoard'),
     btnDeleteArtboard: document.getElementById('btnDeleteArtboard'),
+    btnHeaderTour: document.getElementById('btnHeaderTour'),
     activeBoardTag: document.getElementById('activeBoardTag'),
+    docNameDisplay: document.getElementById('docNameDisplay'),
+
+    // Welcome & Tour Modal References
+    welcomeModalBackdrop: document.getElementById('welcomeModalBackdrop'),
+    welcomeModal: document.getElementById('welcomeModal'),
+    btnCloseWelcomeModal: document.getElementById('btnCloseWelcomeModal'),
+    btnWelcomeStart: document.getElementById('btnWelcomeStart'),
+    tabBtnNewDoc: document.getElementById('tabBtnNewDoc'),
+    tabBtnTour: document.getElementById('tabBtnTour'),
+    contentNewDoc: document.getElementById('contentNewDoc'),
+    contentTour: document.getElementById('contentTour'),
+    welcomePresetsGrid: document.getElementById('welcomePresetsGrid'),
+    chkDontShowWelcomeAgain: document.getElementById('chkDontShowWelcomeAgain'),
     
     // Inspector Inputs
     inpItemTitle: document.getElementById('inpItemTitle'),
@@ -162,12 +177,28 @@
     setupGridColumnSwitcher();
     setupQrCodeGenerator();
     setupExportModal();
+    setupWelcomeModal();
+    setupElementDragging();
     setupShortcuts();
     setupLiveSync();
 
-    await loadMenuTemplate();
+    const urlParams = new URLSearchParams(window.location.search);
+    const templateParam = urlParams.get('template');
+    const skipWelcomeParam = urlParams.get('skipWelcome') || urlParams.get('nowelcome') || urlParams.get('test');
+    const hasSeenWelcome = localStorage.getItem('psycbeat_canvas_welcomed') === 'true' || skipWelcomeParam;
+
+    if (templateParam === 'demo') {
+      await loadMenuTemplate();
+    } else {
+      createBlankCanvas(794, 1123, 'A4 Portrait');
+    }
+
+    if (!hasSeenWelcome && !templateParam) {
+      openWelcomeModal();
+    }
+
     fitZoomToScreen();
-    showToast('Illustrator Canvas Studio Ready', 'success');
+    showToast("PsycBeat's Canvas Studio Ready", 'success');
   }
 
   // ============================================================
@@ -824,11 +855,22 @@
   // ============================================================
   function setupArtboardTabs() {
     dom.artboardTabs.addEventListener('click', (e) => {
+      const addBtn = e.target.closest('#btnTopAddArtboard');
+      if (addBtn) {
+        createNewArtboard();
+        return;
+      }
+      const dupBtn = e.target.closest('#btnTopDupArtboard');
+      if (dupBtn) {
+        duplicateActiveArtboard();
+        return;
+      }
+
       const btn = e.target.closest('.tab-btn');
       if (!btn) return;
 
       const boardId = btn.dataset.board;
-      switchBoard(boardId);
+      if (boardId) switchBoard(boardId);
     });
   }
 
@@ -1054,6 +1096,286 @@
   }
 
   // ============================================================
+  // BLANK CANVAS INITIALIZATION
+  // ============================================================
+  function createBlankCanvas(w = 794, h = 1123, presetName = 'A4 Portrait') {
+    state.artboardWidth = w;
+    state.artboardHeight = h;
+    state.currentBoard = 'page-1';
+
+    dom.artboardsContainer.innerHTML = '';
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'page-artboard-wrapper';
+    wrapper.dataset.boardId = 'page-1';
+
+    const label = document.createElement('div');
+    label.className = 'artboard-label-tag';
+    label.textContent = `ARTBOARD 01 // ${presetName.toUpperCase()}`;
+    wrapper.appendChild(label);
+
+    const page = document.createElement('section');
+    page.className = 'page';
+    page.id = 'page-1';
+    page.dataset.theme = state.theme;
+    page.style.width = `${w}px`;
+    page.style.height = `${h}px`;
+    page.innerHTML = `
+      <div class="blank-canvas-hero" style="margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 20px;">
+        <span class="canvas-tag" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; color: #38bdf8; text-transform: uppercase; background: rgba(56, 189, 248, 0.1); padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px;">PSYCBEAT'S CANVAS STUDIO FOR AI &amp; AGENTS</span>
+        <h1 class="editable-headline" contenteditable="true" style="font-family: 'Bebas Neue', sans-serif; font-size: 38px; letter-spacing: 1px; margin: 0; color: #ffffff;">Creative Project 01</h1>
+        <p class="editable-subline" contenteditable="true" style="font-size: 13.5px; color: #94a3b8; margin: 6px 0 0 0; line-height: 1.5;">Double-click any text to edit. Drag shapes or cards from the left toolbar, or ask an AI agent to layout your ideas.</p>
+      </div>
+      <div class="canvas-dropzone items-grid cols-2" id="canvasDropzone" style="flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-content: start;">
+        <div class="menu-card draggable-card" data-card-id="card-1">
+          <div class="card-top-row">
+            <h2 class="item-title" contenteditable="true">Vector Component 01</h2>
+            <div class="price-pill" contenteditable="true">ACTIVE</div>
+          </div>
+          <p class="item-desc" contenteditable="true">Click with Selection Tool (V) and drag me anywhere! You can reposition, duplicate, or delete any card.</p>
+        </div>
+        <div class="menu-card draggable-card" data-card-id="card-2">
+          <div class="card-top-row">
+            <h2 class="item-title" contenteditable="true">Vector Component 02</h2>
+            <div class="price-pill" contenteditable="true">PROTOTYPE</div>
+          </div>
+          <p class="item-desc" contenteditable="true">Use the left dock to add Rectangles (M), Circles (L), Lines (\\), and Text Blocks (T).</p>
+        </div>
+      </div>
+    `;
+
+    wrapper.appendChild(page);
+    dom.artboardsContainer.appendChild(wrapper);
+    setupArtboardInteractions(page);
+
+    // Reset tabs
+    if (dom.artboardTabs) {
+      dom.artboardTabs.innerHTML = `
+        <button class="tab-btn active" data-board="page-1"><span class="tab-num">01</span><span class="tab-label"> Board 1</span></button>
+        <button class="tab-btn all-boards-btn" data-board="all" title="View all boards in grid"><span class="tab-num">&#9638;</span><span class="tab-label"> All Boards</span></button>
+        <button class="tab-btn add-board-tab-btn" id="btnTopAddArtboard" title="Add New Artboard (Shift+N)"><span class="tab-num">+</span><span class="tab-label"> Add Board</span></button>
+        <button class="tab-btn dup-board-tab-btn" id="btnTopDupArtboard" title="Duplicate Active Artboard"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span class="tab-label"> Duplicate</span></button>
+      `;
+    }
+
+    if (dom.docBadge) {
+      dom.docBadge.textContent = `${presetName} • ${w} × ${h} px`;
+    }
+    if (dom.docNameDisplay) {
+      dom.docNameDisplay.textContent = 'Untitled Artboard';
+    }
+
+    pushHistory('Start Blank Canvas');
+  }
+
+  // ============================================================
+  // WELCOME & ONBOARDING MODAL
+  // ============================================================
+  function setupWelcomeModal() {
+    let selectedPreset = { w: 794, h: 1123, name: 'A4 Portrait' };
+    let selectedMode = 'blank';
+
+    if (dom.btnHeaderTour) {
+      dom.btnHeaderTour.addEventListener('click', openWelcomeModal);
+    }
+    if (dom.btnCloseWelcomeModal) {
+      dom.btnCloseWelcomeModal.addEventListener('click', closeWelcomeModal);
+    }
+    if (dom.welcomeModalBackdrop) {
+      dom.welcomeModalBackdrop.addEventListener('click', (e) => {
+        if (e.target === dom.welcomeModalBackdrop) closeWelcomeModal();
+      });
+    }
+
+    if (dom.tabBtnNewDoc && dom.tabBtnTour) {
+      dom.tabBtnNewDoc.addEventListener('click', () => {
+        dom.tabBtnNewDoc.classList.add('active');
+        dom.tabBtnTour.classList.remove('active');
+        if (dom.contentNewDoc) dom.contentNewDoc.style.display = 'block';
+        if (dom.contentTour) dom.contentTour.style.display = 'none';
+      });
+
+      dom.tabBtnTour.addEventListener('click', () => {
+        dom.tabBtnTour.classList.add('active');
+        dom.tabBtnNewDoc.classList.remove('active');
+        if (dom.contentTour) dom.contentTour.style.display = 'block';
+        if (dom.contentNewDoc) dom.contentNewDoc.style.display = 'none';
+      });
+    }
+
+    const presetCards = document.querySelectorAll('.wpreset-card');
+    presetCards.forEach(card => {
+      card.addEventListener('click', () => {
+        presetCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        selectedPreset = {
+          w: parseInt(card.dataset.w, 10),
+          h: parseInt(card.dataset.h, 10),
+          name: card.dataset.name
+        };
+      });
+    });
+
+    const choiceCards = document.querySelectorAll('.template-choice-card');
+    choiceCards.forEach(card => {
+      card.addEventListener('click', () => {
+        choiceCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        const radio = card.querySelector('input[type="radio"]');
+        if (radio) {
+          radio.checked = true;
+          selectedMode = radio.value;
+        }
+      });
+    });
+
+    if (dom.btnWelcomeStart) {
+      dom.btnWelcomeStart.addEventListener('click', async () => {
+        if (dom.chkDontShowWelcomeAgain && dom.chkDontShowWelcomeAgain.checked) {
+          localStorage.setItem('psycbeat_canvas_welcomed', 'true');
+        }
+
+        closeWelcomeModal();
+
+        if (selectedMode === 'demo') {
+          await loadMenuTemplate();
+          showToast('Loaded Reference Template', 'info');
+        } else {
+          createBlankCanvas(selectedPreset.w, selectedPreset.h, selectedPreset.name);
+          showToast(`Started Clean Canvas (${selectedPreset.name})`, 'success');
+        }
+
+        fitZoomToScreen();
+      });
+    }
+  }
+
+  function openWelcomeModal() {
+    if (dom.welcomeModalBackdrop) dom.welcomeModalBackdrop.style.display = 'flex';
+  }
+
+  function closeWelcomeModal() {
+    if (dom.welcomeModalBackdrop) dom.welcomeModalBackdrop.style.display = 'none';
+  }
+
+  // ============================================================
+  // FREEFORM & ORGANIZED ELEMENT DRAGGING ENGINE
+  // ============================================================
+  function setupElementDragging() {
+    let draggedElement = null;
+    let startX = 0, startY = 0;
+    let currentDx = 0, currentDy = 0;
+    let initialTx = 0, initialTy = 0;
+    let isDragging = false;
+    let coordPill = null;
+    let hoverTarget = null;
+    let dropPosition = 'after';
+
+    document.addEventListener('mousedown', (e) => {
+      if (state.currentTool !== 'select') return;
+      if (e.target.isContentEditable) return;
+      if (e.target.closest('button, input, select, textarea, .artboard-handle')) return;
+
+      const target = e.target.closest('.menu-card, .vector-shape-item, .draggable-card');
+      if (!target) return;
+
+      draggedElement = target;
+      startX = e.clientX;
+      startY = e.clientY;
+      isDragging = false;
+
+      const currentTransform = target.style.transform || '';
+      const matrixMatch = currentTransform.match(/translate\(([-\d.]+)px,\s*([-\d.]+)px\)/);
+      initialTx = matrixMatch ? parseFloat(matrixMatch[1]) : 0;
+      initialTy = matrixMatch ? parseFloat(matrixMatch[2]) : 0;
+
+      function onMouseMove(moveEvent) {
+        const deltaX = (moveEvent.clientX - startX) / state.zoom;
+        const deltaY = (moveEvent.clientY - startY) / state.zoom;
+
+        if (!isDragging && (Math.abs(deltaX) > 4 || Math.abs(deltaY) > 4)) {
+          isDragging = true;
+          draggedElement.classList.add('is-dragging');
+
+          coordPill = document.createElement('div');
+          coordPill.className = 'drag-coordinate-pill';
+          draggedElement.appendChild(coordPill);
+        }
+
+        if (isDragging) {
+          currentDx = initialTx + deltaX;
+          currentDy = initialTy + deltaY;
+          draggedElement.style.transform = `translate(${currentDx}px, ${currentDy}px)`;
+
+          if (coordPill) {
+            coordPill.textContent = `X: ${Math.round(currentDx)}px  Y: ${Math.round(currentDy)}px`;
+          }
+
+          document.querySelectorAll('.drop-before-indicator, .drop-after-indicator').forEach(el => {
+            el.classList.remove('drop-before-indicator', 'drop-after-indicator');
+          });
+
+          const elementsUnderPoint = document.elementsFromPoint(moveEvent.clientX, moveEvent.clientY);
+          const sibling = elementsUnderPoint.find(el => el !== draggedElement && el.classList && (el.classList.contains('menu-card') || el.classList.contains('vector-shape-item')));
+
+          if (sibling && sibling.parentElement === draggedElement.parentElement) {
+            hoverTarget = sibling;
+            const sibRect = sibling.getBoundingClientRect();
+            if (moveEvent.clientY < sibRect.top + sibRect.height / 2) {
+              dropPosition = 'before';
+              sibling.classList.add('drop-before-indicator');
+            } else {
+              dropPosition = 'after';
+              sibling.classList.add('drop-after-indicator');
+            }
+          } else {
+            hoverTarget = null;
+          }
+        }
+      }
+
+      function onMouseUp() {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+
+        if (isDragging && draggedElement) {
+          draggedElement.classList.remove('is-dragging');
+          if (coordPill) {
+            coordPill.remove();
+            coordPill = null;
+          }
+
+          if (hoverTarget && hoverTarget.parentElement) {
+            draggedElement.style.transform = '';
+            if (dropPosition === 'before') {
+              hoverTarget.parentElement.insertBefore(draggedElement, hoverTarget);
+            } else {
+              hoverTarget.parentElement.insertBefore(draggedElement, hoverTarget.nextSibling);
+            }
+            showToast('Element Reordered in Grid', 'info');
+          } else {
+            showToast(`Moved element to (${Math.round(currentDx)}px, ${Math.round(currentDy)}px)`, 'info');
+          }
+
+          document.querySelectorAll('.drop-before-indicator, .drop-after-indicator').forEach(el => {
+            el.classList.remove('drop-before-indicator', 'drop-after-indicator');
+          });
+
+          updateTransformOverlay(draggedElement);
+          pushHistory('Move Element');
+        }
+
+        draggedElement = null;
+        isDragging = false;
+        hoverTarget = null;
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+  }
+
+  // ============================================================
   // TOOL PALETTE SELECTION
   // ============================================================
   function setupToolPalette() {
@@ -1066,10 +1388,69 @@
         addNewCardToCurrentBoard();
         return;
       }
+      if (tool === 'rect') {
+        addVectorShape('rect');
+        return;
+      }
+      if (tool === 'circle') {
+        addVectorShape('circle');
+        return;
+      }
+      if (tool === 'line') {
+        addVectorShape('line');
+        return;
+      }
+      if (tool === 'text') {
+        addVectorShape('text');
+        return;
+      }
       if (tool === 'guides') return; // Handled separately
 
       setTool(tool);
     });
+  }
+
+  function addVectorShape(type) {
+    const activePage = dom.artboardsContainer.querySelector(`.page-artboard-wrapper[data-board-id="${state.currentBoard}"] .page`) ||
+                       dom.artboardsContainer.querySelector('.page');
+    if (!activePage) return;
+
+    let targetContainer = activePage.querySelector('.canvas-dropzone, .items-grid');
+    if (!targetContainer) {
+      targetContainer = activePage;
+    }
+
+    const shapeId = `shape-${Date.now()}`;
+    const el = document.createElement('div');
+    el.className = `menu-card vector-shape-item vector-shape-${type}`;
+    el.dataset.cardId = shapeId;
+
+    if (type === 'rect') {
+      el.innerHTML = `
+        <div class="card-top-row">
+          <h2 class="item-title" contenteditable="true" style="margin: 0; font-size: 18px; color: #fff;">Vector Rectangle</h2>
+        </div>
+        <p class="item-desc" contenteditable="true" style="margin: 6px 0 0 0; font-size: 13px; color: #94a3b8;">Click with Selection Tool (V) to drag anywhere or edit properties.</p>
+      `;
+    } else if (type === 'circle') {
+      el.innerHTML = `
+        <span class="circle-inner-label" contenteditable="true" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #38bdf8; text-transform: uppercase;">VECTOR CIRCLE</span>
+      `;
+    } else if (type === 'line') {
+      el.innerHTML = ``;
+    } else if (type === 'text') {
+      el.className = `menu-card vector-shape-item vector-text-block`;
+      el.innerHTML = `
+        <h2 class="item-title" contenteditable="true" style="margin: 0; font-size: 24px; color: #ffffff;">Custom Headline Block</h2>
+        <p class="item-desc" contenteditable="true" style="margin: 6px 0 0 0; font-size: 14px; color: #94a3b8;">Double click to type your paragraph or text content.</p>
+      `;
+    }
+
+    targetContainer.appendChild(el);
+    setupArtboardInteractions(activePage);
+    selectElement(el, el);
+    pushHistory(`Add Vector ${type}`);
+    showToast(`Added Vector ${type.toUpperCase()}`, 'success');
   }
 
   function setTool(toolName) {

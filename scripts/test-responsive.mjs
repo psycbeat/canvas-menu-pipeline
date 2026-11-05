@@ -27,6 +27,7 @@ async function testResponsive() {
     console.log(`Checking Viewport: ${vp.name} (${vp.width}x${vp.height})`);
     const page = await browser.newPage({ viewport: { width: vp.width, height: vp.height } });
 
+    await page.addInitScript(() => localStorage.setItem('psycbeat_canvas_welcomed', 'true'));
     await page.goto('http://localhost:3001', { waitUntil: 'networkidle' });
     await page.waitForTimeout(600);
 

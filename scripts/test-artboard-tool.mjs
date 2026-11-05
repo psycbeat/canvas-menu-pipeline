@@ -11,6 +11,7 @@ async function testArtboardTool() {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
 
+  await page.addInitScript(() => localStorage.setItem('psycbeat_canvas_welcomed', 'true'));
   await page.goto('http://localhost:3001', { waitUntil: 'networkidle' });
   await page.waitForTimeout(600);
 
