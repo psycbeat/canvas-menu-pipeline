@@ -12,7 +12,8 @@
     "test:responsive": "node scripts/test-responsive.mjs",
     "test:artboard": "node scripts/test-artboard-tool.mjs",
     "test:exports": "node scripts/test-exports.mjs",
-    "test": "node scripts/test-responsive.mjs && node scripts/test-artboard-tool.mjs && node scripts/test-exports.mjs"
+    "test:zoom-drag": "node scripts/test-zoom-drag-fixes.mjs",
+    "test": "node scripts/test-zoom-drag-fixes.mjs && node scripts/test-responsive.mjs && node scripts/test-artboard-tool.mjs && node scripts/test-exports.mjs"
   },
   "keywords": [
     "claude-canvas-alternative",

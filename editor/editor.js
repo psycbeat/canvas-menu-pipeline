@@ -1000,6 +1000,19 @@
         setZoom(state.zoom + delta);
       }
     }, { passive: false });
+
+    // Viewport scroll & window resize sync for overlays
+    dom.viewport.addEventListener('scroll', () => {
+      updateTransformOverlay();
+      updateArtboardOverlayPosition();
+      updatePrintGuidesPosition();
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      updateTransformOverlay();
+      updateArtboardOverlayPosition();
+      updatePrintGuidesPosition();
+    });
   }
 
   function toggleInspector() {
@@ -1053,6 +1066,11 @@
     updateTransformOverlay();
     updatePrintGuidesPosition();
     updateArtboardOverlayPosition();
+    requestAnimationFrame(() => {
+      updateTransformOverlay();
+      updatePrintGuidesPosition();
+      updateArtboardOverlayPosition();
+    });
   }
 
   function updateZoomDisplay() {
@@ -1259,13 +1277,11 @@
   }
 
   // ============================================================
-  // FREEFORM & ORGANIZED ELEMENT DRAGGING ENGINE
+  // CLAUDE CANVAS AUTO-ORGANIZING DRAG ENGINE
   // ============================================================
   function setupElementDragging() {
     let draggedElement = null;
     let startX = 0, startY = 0;
-    let currentDx = 0, currentDy = 0;
-    let initialTx = 0, initialTy = 0;
     let isDragging = false;
     let coordPill = null;
     let hoverTarget = null;
@@ -1283,11 +1299,7 @@
       startX = e.clientX;
       startY = e.clientY;
       isDragging = false;
-
-      const currentTransform = target.style.transform || '';
-      const matrixMatch = currentTransform.match(/translate\(([-\d.]+)px,\s*([-\d.]+)px\)/);
-      initialTx = matrixMatch ? parseFloat(matrixMatch[1]) : 0;
-      initialTy = matrixMatch ? parseFloat(matrixMatch[2]) : 0;
+      hoverTarget = null;
 
       function onMouseMove(moveEvent) {
         const deltaX = (moveEvent.clientX - startX) / state.zoom;
@@ -1299,37 +1311,60 @@
 
           coordPill = document.createElement('div');
           coordPill.className = 'drag-coordinate-pill';
+          coordPill.textContent = 'Auto-organizing in Grid...';
           draggedElement.appendChild(coordPill);
         }
 
         if (isDragging) {
-          currentDx = initialTx + deltaX;
-          currentDy = initialTy + deltaY;
-          draggedElement.style.transform = `translate(${currentDx}px, ${currentDy}px)`;
-
-          if (coordPill) {
-            coordPill.textContent = `X: ${Math.round(currentDx)}px  Y: ${Math.round(currentDy)}px`;
-          }
+          draggedElement.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(1.02)`;
 
           document.querySelectorAll('.drop-before-indicator, .drop-after-indicator').forEach(el => {
             el.classList.remove('drop-before-indicator', 'drop-after-indicator');
           });
 
-          const elementsUnderPoint = document.elementsFromPoint(moveEvent.clientX, moveEvent.clientY);
-          const sibling = elementsUnderPoint.find(el => el !== draggedElement && el.classList && (el.classList.contains('menu-card') || el.classList.contains('vector-shape-item')));
+          // Identify page / grid under cursor
+          const underPoint = document.elementsFromPoint(moveEvent.clientX, moveEvent.clientY);
+          const targetPage = underPoint.find(el => el.classList && el.classList.contains('page')) ||
+                             draggedElement.closest('.page');
 
-          if (sibling && sibling.parentElement === draggedElement.parentElement) {
-            hoverTarget = sibling;
-            const sibRect = sibling.getBoundingClientRect();
-            if (moveEvent.clientY < sibRect.top + sibRect.height / 2) {
-              dropPosition = 'before';
-              sibling.classList.add('drop-before-indicator');
+          if (targetPage) {
+            const grid = targetPage.querySelector('.items-grid, .canvas-dropzone') || targetPage;
+            const otherCards = Array.from(grid.querySelectorAll('.menu-card, .vector-shape-item'))
+              .filter(c => c !== draggedElement && !c.classList.contains('is-dragging'));
+
+            if (otherCards.length > 0) {
+              let closestCard = null;
+              let minDistance = Infinity;
+              let dropPos = 'after';
+
+              for (const card of otherCards) {
+                const r = card.getBoundingClientRect();
+                const cx = r.left + r.width / 2;
+                const cy = r.top + r.height / 2;
+                const dist = Math.hypot(moveEvent.clientX - cx, moveEvent.clientY - cy);
+
+                if (dist < minDistance) {
+                  minDistance = dist;
+                  closestCard = card;
+                  // In reading order (left-to-right, top-to-bottom):
+                  const isBefore = (moveEvent.clientY < cy - 10) || 
+                                   (Math.abs(moveEvent.clientY - cy) <= r.height / 2 && moveEvent.clientX < cx);
+                  dropPos = isBefore ? 'before' : 'after';
+                }
+              }
+
+              if (closestCard) {
+                hoverTarget = closestCard;
+                dropPosition = dropPos;
+                if (dropPos === 'before') {
+                  closestCard.classList.add('drop-before-indicator');
+                } else {
+                  closestCard.classList.add('drop-after-indicator');
+                }
+              }
             } else {
-              dropPosition = 'after';
-              sibling.classList.add('drop-after-indicator');
+              hoverTarget = null;
             }
-          } else {
-            hoverTarget = null;
           }
         }
       }
@@ -1345,24 +1380,28 @@
             coordPill = null;
           }
 
+          // ALWAYS reset inline transform to auto-organize cleanly into the grid
+          draggedElement.style.transform = '';
+
           if (hoverTarget && hoverTarget.parentElement) {
-            draggedElement.style.transform = '';
             if (dropPosition === 'before') {
               hoverTarget.parentElement.insertBefore(draggedElement, hoverTarget);
             } else {
               hoverTarget.parentElement.insertBefore(draggedElement, hoverTarget.nextSibling);
             }
-            showToast('Element Reordered in Grid', 'info');
+            showToast('Auto-organized into Grid', 'success');
           } else {
-            showToast(`Moved element to (${Math.round(currentDx)}px, ${Math.round(currentDy)}px)`, 'info');
+            showToast('Auto-organized in Place', 'info');
           }
 
           document.querySelectorAll('.drop-before-indicator, .drop-after-indicator').forEach(el => {
             el.classList.remove('drop-before-indicator', 'drop-after-indicator');
           });
 
+          selectElement(draggedElement, draggedElement);
           updateTransformOverlay(draggedElement);
-          pushHistory('Move Element');
+          updateReorderButtons();
+          pushHistory('Auto-organize Element');
         }
 
         draggedElement = null;

@@ -571,7 +571,7 @@ body.illustrator-theme {
   position: relative;
   margin: 0 auto;
   flex-shrink: 0;
-  transition: width 0.15s ease-out, height 0.15s ease-out;
+  transition: none !important;
 }
 
 .canvas-stage {
@@ -579,7 +579,7 @@ body.illustrator-theme {
   top: 0;
   left: 0;
   transform-origin: top left;
-  transition: transform 0.15s ease-out;
+  transition: none !important;
   flex-shrink: 0;
 }
 
@@ -619,7 +619,7 @@ body.illustrator-theme {
   border: 2px solid var(--accent-blue);
   pointer-events: none;
   z-index: 1000;
-  transition: all 0.08s ease-out;
+  transition: none !important;
 }
 
 .transform-overlay .handle {
@@ -669,7 +669,7 @@ body.illustrator-theme {
   box-shadow: 0 0 0 1px rgba(10, 132, 255, 0.4), inset 0 0 0 1px rgba(10, 132, 255, 0.15);
   pointer-events: auto;
   z-index: 1005;
-  transition: all 0.05s linear;
+  transition: none !important;
 }
 
 .artboard-handle {
@@ -1980,18 +1980,57 @@ input[type="range"] {
 
 .menu-card.is-dragging, .vector-shape-item.is-dragging {
   cursor: grabbing !important;
-  opacity: 0.92;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px #38bdf8 !important;
+  opacity: 0.85;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.65), 0 0 0 2px #38bdf8 !important;
   z-index: 999;
+  pointer-events: none;
+  transform-origin: center center;
+}
+
+.menu-card.drop-before-indicator, .vector-shape-item.drop-before-indicator {
+  position: relative;
+  outline: 2px dashed #38bdf8 !important;
+  box-shadow: 0 -4px 14px rgba(56, 189, 248, 0.4) !important;
+}
+
+.menu-card.drop-before-indicator::before, .vector-shape-item.drop-before-indicator::before {
+  content: "INSERT BEFORE ⮥";
+  position: absolute;
+  top: -14px;
+  left: 8px;
+  background: #38bdf8;
+  color: #07080B;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  z-index: 100;
   pointer-events: none;
 }
 
-.menu-card.drop-before-indicator {
-  border-top: 3px solid #38bdf8 !important;
+.menu-card.drop-after-indicator, .vector-shape-item.drop-after-indicator {
+  position: relative;
+  outline: 2px dashed #38bdf8 !important;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4) !important;
 }
 
-.menu-card.drop-after-indicator {
-  border-bottom: 3px solid #38bdf8 !important;
+.menu-card.drop-after-indicator::after, .vector-shape-item.drop-after-indicator::after {
+  content: "INSERT AFTER ⮧";
+  position: absolute;
+  bottom: -14px;
+  left: 8px;
+  background: #38bdf8;
+  color: #07080B;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  z-index: 100;
+  pointer-events: none;
 }
 
 /* Floating Pos Coordinate Pill */
