@@ -54,7 +54,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/canvas-menu-pipeline.git
+git clone https://github.com/psycbeat/canvas-menu-pipeline.git
 cd canvas-menu-pipeline
 
 # Install dependencies
