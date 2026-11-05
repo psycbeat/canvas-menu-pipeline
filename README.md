@@ -1,6 +1,8 @@
 # 🎨 CRAVE LAB // Illustrator Canvas Studio & Print Pipeline
 
 > A production-grade, print-engineered multi-artboard canvas studio, 8-format universal export engine, automated zero-overflow visual verification loop, and dynamic vector PDF compiler.
+>
+> **Created & Built by [@psycbeat](https://github.com/psycbeat)**
 
 [![CI Status](https://img.shields.io/badge/CI-Passing-brightgreen.svg)](#-github-actions-ci--testing)
 [![Node.js Version](https://img.shields.io/badge/Node.js-v18%2B-green.svg)](https://nodejs.org/)
@@ -185,6 +187,14 @@ canvas-menu-pipeline/
 ├── package.json                  # Package scripts & dependencies (v2.0.0)
 └── README.md                     # Project documentation
 ```
+
+---
+
+## 👤 Author & Credits
+
+**psycbeat**
+* GitHub: [@psycbeat](https://github.com/psycbeat)
+* Repository: [canvas-menu-pipeline](https://github.com/psycbeat/canvas-menu-pipeline)
 
 ---
 

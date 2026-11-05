@@ -24,7 +24,7 @@
     "live-sync",
     "ai-collaboration"
   ],
-  "author": "CRAVE LAB",
+  "author": "psycbeat (https://github.com/psycbeat)",
   "license": "MIT",
   "dependencies": {
     "playwright": "^1.49.0"
