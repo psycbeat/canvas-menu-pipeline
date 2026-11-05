@@ -89,7 +89,9 @@
     inpArtboardH: document.getElementById('inpArtboardH'),
     btnSwapOrientation: document.getElementById('btnSwapOrientation'),
     btnNewArtboard: document.getElementById('btnNewArtboard'),
+    btnTopAddArtboard: document.getElementById('btnTopAddArtboard'),
     btnDuplicateArtboard: document.getElementById('btnDuplicateArtboard'),
+    btnClearBoard: document.getElementById('btnClearBoard'),
     btnDeleteArtboard: document.getElementById('btnDeleteArtboard'),
     activeBoardTag: document.getElementById('activeBoardTag'),
     
@@ -1173,8 +1175,17 @@
     if (dom.btnNewArtboard) {
       dom.btnNewArtboard.addEventListener('click', createNewArtboard);
     }
+    if (dom.btnTopAddArtboard) {
+      dom.btnTopAddArtboard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        createNewArtboard();
+      });
+    }
     if (dom.btnDuplicateArtboard) {
       dom.btnDuplicateArtboard.addEventListener('click', duplicateActiveArtboard);
+    }
+    if (dom.btnClearBoard) {
+      dom.btnClearBoard.addEventListener('click', clearActiveArtboardToBlank);
     }
     if (dom.btnDeleteArtboard) {
       dom.btnDeleteArtboard.addEventListener('click', deleteActiveArtboard);
@@ -1459,6 +1470,27 @@
 
       pushHistory('Delete Artboard');
       showToast('Artboard deleted', 'warn');
+    }
+  }
+
+  function clearActiveArtboardToBlank() {
+    const activeWrapper = dom.artboardsContainer.querySelector(`.page-artboard-wrapper[data-board-id="${state.currentBoard}"]`);
+    if (!activeWrapper) return;
+    const page = activeWrapper.querySelector('.page');
+    if (!page) return;
+
+    if (confirm(`Clear artboard "${state.currentBoard}" to a Blank Canvas? (All sample items will be removed)`)) {
+      clearSelection();
+      page.innerHTML = `
+        <div class="blank-artboard-container" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.12); border-radius: 8px; min-height: 80%; padding: 40px; text-align: center; color: #888;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity: 0.4; margin-bottom: 16px;"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          <h2 class="item-title" style="font-size: 24px; color: var(--color-text-primary, #fff); margin-bottom: 8px;" contenteditable="true">Blank Artboard</h2>
+          <p class="item-desc" style="font-size: 13.5px; max-width: 440px; color: var(--color-text-muted, #999); line-height: 1.5;" contenteditable="true">Double-click to type custom headlines, press (+) on the left dock to add design cards, or collaborate with an AI agent.</p>
+        </div>
+      `;
+      setupArtboardInteractions(page);
+      pushHistory('Clear Board to Blank');
+      showToast('Board Cleared to Blank Canvas', 'info');
     }
   }
 
@@ -2060,6 +2092,10 @@
       else if ((e.shiftKey && key === 'o') || key === 'o') {
         e.preventDefault();
         setTool('artboard');
+      }
+      else if (e.shiftKey && (key === 'n' || key === 'a')) {
+        e.preventDefault();
+        createNewArtboard();
       }
       else if (e.key === 'Escape') {
         if (dom.exportModalBackdrop && dom.exportModalBackdrop.style.display !== 'none') {

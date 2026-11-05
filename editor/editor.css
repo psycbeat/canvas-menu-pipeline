@@ -301,6 +301,26 @@ body.illustrator-theme {
   margin-left: 4px;
 }
 
+.tab-btn.add-board-tab-btn {
+  border: 1px dashed rgba(56, 189, 248, 0.45);
+  background-color: rgba(56, 189, 248, 0.08);
+  color: #38bdf8;
+  margin-left: 4px;
+  padding: 4px 8px;
+}
+
+.tab-btn.add-board-tab-btn:hover {
+  background-color: #38bdf8;
+  color: #0f172a;
+  border-color: #38bdf8;
+}
+
+.tab-btn.add-board-tab-btn .tab-num {
+  font-size: 13px;
+  font-weight: 700;
+  color: inherit;
+}
+
 /* Header Right */
 .header-right {
   display: flex;

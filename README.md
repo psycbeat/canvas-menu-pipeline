@@ -251,6 +251,7 @@ Navigate to **[http://localhost:3001](http://localhost:3001)** in any modern bro
 | `B` | **Badge Stamper** | Stamp dietary chips (`BESTSELLER`, `HIGH HEAT 🌶️`, `CHEF PICK ⭐`) |
 | `+` | **Add Card** | Insert a new menu item card into the active artboard |
 | `O` or `Shift + O` | **Artboard Tool** | Enter Illustrator Artboard mode with 8 drag handles & presets |
+| `Shift + N` | **New Artboard** | Instantly insert a new artboard into the canvas |
 | `G` | **Print Safe Guides** | Toggle print-safe margin boundary overlay |
 | `H` | **Hand Tool** | Click and drag to pan across the canvas |
 | `Z` | **Zoom Tool** | Click to zoom in / `Ctrl + Wheel` to zoom dynamically |
